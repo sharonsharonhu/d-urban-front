@@ -1,0 +1,187 @@
+@font-face {
+    /* 自定义字体Pingfang SC*/
+    font-family: PingfangSC;
+    src: url('../fonts/PingFang%20Regular.ttf');
+}
+
+*{
+    margin: 0;
+    padding-bottom: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    /* 定义所有字体为自定义字体Pingfang*/
+    font-family: PingfangSC;
+}
+body{
+    /* 禁止左右/上下滑动 */
+    /*overflow-x: hidden;*/
+    /*overflow-y: hidden;*/
+    height: 100%;
+    width: 100%;
+}
+.navBar{
+    /* 导航栏高度*/
+    height: 74px;
+    /* 描边*/
+    border: 1px solid rgba(0,0,0,0.95);
+    /* 背景颜色设为黑色*/
+    background-color:rgba(0,0,0,0.9) ;
+    /* 阴影，左右距离，上下距离，大小，颜恶行dexxx*/
+    box-shadow: 0px 5px 5px #888888;
+    position: fixed;
+    z-index: 4;
+    margin-left: 15px; /* 设置了fixed，一些属性失效，需要左边加上15px*/
+}
+#mainview{
+    background: url("../img/shanghaibg.png") no-repeat fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    overflow-y: scroll;
+}
+/* 改写container属性*/
+.container{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+.shadowCover{
+    /* mainview的遮罩层*/
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.85);
+}
+
+.table-container{
+    position: absolute;
+    z-index: 3;
+    margin-left: 50px;
+    width: 820px;
+    margin-right: 0px;
+    margin-top: 119px; /* 因为该页面甚至为nav Fixed，所以原margintop+ nav高度*/
+}
+/* btngroup*/
+.table-container-btngroup{
+    position: absolute;
+    z-index: 6;
+    width: 300px;
+    right: 0;
+    /*margin-top: 15px;*/
+    height: 60px;
+}
+.table-container-btngroup-btn{
+    position: relative;
+    display: inline-block;
+    /* 宽度*/
+    width: 40%;
+    height: 70%;
+    /* 边距*/
+    padding: 10px;
+    margin-left: 3%;
+    margin-right: 1px;
+    margin-top: 15px;
+    /* 边框*/
+    border: 2px solid #ccc ;
+    border-radius: 10px;
+    /* 右排列*/
+    float: right;
+    /* 上下居中*/
+    top: 45%;
+    transform:translate(0%,-50%) ;
+    /* 文字居中，大小，粗*/
+    text-align: center;
+    font-size: 13px;
+    font-weight: bolder;
+    color: white;
+    /* 指针*/
+    cursor: default;
+}
+.table-container-btngroup-btn>span:hover{
+    border-bottom: 1px solid #ffffff;
+}
+.table-container-btngroup-btn>span:active{
+    border-bottom: 1px solid #eeeeee;
+}
+
+#table-container-btngroup-btn-policeman{
+    background-color: #fdb431;
+    border-color: #fab779;
+}
+
+#table-container-btngroup-btn-wechat{
+    background-color: #81a040;
+    border-color: #9db075;
+}
+
+
+.table-container h1{
+    font-weight: bolder;
+
+}
+.table-container-main{
+    margin-top: 15px;
+    border: 1px solid rgba(0,0,0,0.9);
+}
+.table-container-main>thead>tr>td{
+    /*padding: 15px;*/
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left:0px;
+    padding-right:0px;
+    width: 120px;
+    font-weight: bolder;
+    font-size: 17px;
+    border: 1px solid rgba(0,0,0,0.9);
+}
+.table-container-main>tbody>tr>td{
+    padding: 15px;
+    font-weight: bold;
+    border: 1px solid rgba(0,0,0,0.9);
+    font-size: 13px;
+}
+/* 第一列：选择*/
+.table-container-main>thead>tr>td.table-container-main-1{
+    width: 80px;
+}
+.table-container-main>thead>tr>td.table-container-main-2{
+    width: 130px;
+}
+.table-container-main>thead>tr>td.table-container-main-3{
+    width: 100px;
+}
+.table-container-main>thead>tr>td.table-container-main-4{
+    width: 150px;
+}
+.table-container-main>thead>tr>td.table-container-main-5{
+    width: 160px;
+}
+.table-container-main>thead>tr>td.table-container-main-6{
+    width: 110px;
+}
+
+.aggregation{
+    font-size: 14px;
+    padding-bottom: 1px;
+    border-bottom: 1px solid #000;
+    font-weight: 800;
+}
+a:hover{
+    text-decoration: none;
+}
+#logo{
+    position: relative;
+    width: 110px;
+    left: 25px;
+    top: -10px;
+}
+
+
+
+
+
+
+
+
+

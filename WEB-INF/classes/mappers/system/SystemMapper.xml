@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.universe.soda.system.dao.SystemDao">
+  	<resultMap id="BaseResultMap" type="com.universe.soda.system.entity.SysData">
+	
+		<id column="geohash" property="geohash" jdbcType="VARCHAR" />
+		<id column="level" property="level" jdbcType="INTEGER" />
+		<id column="size" property="size" jdbcType="INTEGER" />
+		<id column="inflow" property="inflow" jdbcType="INTEGER" />
+		<id column="outflow" property="outflow" jdbcType="INTEGER" />
+		<id column="itemId" property="itemId" jdbcType="LONGVARCHAR" />
+		<id column="itemForward" property="itemForward" jdbcType="LONGVARCHAR" />
+		<id column="itemFrom" property="itemFrom" jdbcType="LONGVARCHAR" />
+	</resultMap>  
+
+    <update id="dropTable" parameterType="String"> 
+        drop table if exists ${tableName} 
+    </update>  
+
+    <update id="createNewTable" parameterType="String"> 
+        create table ${tableName} (
+        				geohash varchar(24) not null,
+        				level tinyint unsigned not null,
+        				size int unsigned not null,
+        				inflow int not null,
+        				outflow int not null,
+        				itemId longtext,
+        				itemForward longtext,
+        				itemFrom longtext
+						);
+    </update> 
+    
+    <insert id="insert" >
+    	insert into ${tableName}(geohash,level,size,inflow,outflow,itemId,itemForward,itemFrom) 
+    						values(#{geohash},#{level},#{size},#{inflow},#{outflow},#{itemId},#{itemForward},#{itemFrom});
+    </insert>
+    
+
+	<select id="selectBlackHole" parameterType="String" resultMap="BaseResultMap">
+    	select geohash,level,size,inflow,outflow,itemId,itemForward,itemFrom from ${tableName} where (inflow-outflow)&gt;(40);
+    </select>
+    
+	<select id="selectVolcano" parameterType="String" resultMap="BaseResultMap">
+    	select geohash,level,size,inflow,outflow,itemId,itemForward,itemFrom from ${tableName} where (inflow-outflow)&lt;(-40);
+    </select>    
+    
+	<select id="selectException" parameterType="String" resultMap="BaseResultMap">
+    	select geohash,level,size,inflow,outflow,itemId,itemForward,itemFrom from ${tableName} where (inflow-outflow)&lt;-75 or (inflow-outflow)&gt;75
+    </select>   
+    	<select id="selectAlarm" parameterType="String" resultMap="BaseResultMap">
+    	select geohash,level,size,inflow,outflow,itemId,itemForward,itemFrom from ${tableName} where (inflow-outflow)&lt;-75 or (inflow-outflow)&gt;75
+    </select> 
+     
+    <select id="selectBlackholeNum" parameterType="String" resultType="int">
+    	select count(*) from ${tableName} where (inflow-outflow)&gt;40
+    </select>   
+    
+    <select id="selectVolcanoNum" parameterType="String" resultType="int">
+    	select count(*) from ${tableName} where (inflow-outflow)&lt;-40
+    </select>  
+    
+    <select id="selectVolcanoNumAtGeoHash" resultType="int">
+    	select count(*) from ${tableName} where (inflow-outflow)&lt;-40 and geohash like #{geohash}
+    </select>  
+    
+	<select id="selectBlackholeNumAtGeoHash" parameterType="String" resultType="int">
+    	select count(*) from ${tableName} where (inflow-outflow)&lt;-40 and geohash like #{geohash}
+    </select>  
+    
+</mapper>

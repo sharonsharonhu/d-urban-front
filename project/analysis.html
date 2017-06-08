@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Analysis</title>
+    <!-- bootstrap插件-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/buttons.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 页面css-->
+    <link rel="stylesheet" href="css/analysis.css">
+    <!-- 导航栏-->
+    <link href="css/jquery-accordion-menu.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css" /><script src="js/modernizr.js"></script> <!-- Modernizr -->
+    <script src="js/jquery-accordion-menu.js" type="text/javascript"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM"></script>
+
+</head>
+<body>
+
+    <!-- 导航条，logo待改进 -->
+    <div class="row myNav">
+        <div class="col-md-12 navBar">
+            <img src="img/logo.png" id="logo">
+        </div>
+    </div>
+    <!-- 统一跳转菜单 -->
+    <div id="cd-menu-trigger" style="position:absolute;z-index: 9;top: 149px; right: 30px; height: 40px; width: 180px;border-bottom-left-radius: 4px;border-bottom-right-radius: 4px">
+        <div id="jquery-accordion-menu" class="jquery-accordion-menu red" style="position:absolute;left:0px"  >
+            <ul id="demo-list" style="color:rgba(255,255,255,1);margin-left:0px">
+                <li class="active" style="width:180px">
+                    <a href="#" style="border-top-left-radius: 4px;border-top-right-radius: 4px;">
+                        </i><strong>&nbsp;维度切换</strong>
+                    </a>
+                    <ul class="" style="display: block;">
+                        <li><a href="http://182.254.148.45:8080/soda/#" style="background-color: rgba(0,0,0,0.6)"><img src="img/jianceon.png">&nbsp;实时监测</a></li>
+                        <li><a href="attention.html" style="background-color: rgba(0,0,0,0.6)"><img src="img/yujingoff.png">&nbsp;预警提示发布</a></li>
+                        <li><a href="analysis.html" style="color:#F90;background-color: rgba(0,0,0,0.6)"><img src="img/tongjion.png">&nbsp;统计分析</a></li>
+                        <li><a href="../activity.html" style ="background-color: rgba(0,0,0,0.6)"><img src="img/huodongoff.png">&nbsp;大型活动场所监测</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 主视窗-->
+    <div id="mainview" class="container">
+        <!-- 阴影-->
+        <div class="shadowCover"></div>
+        <!-- 左留空-->
+        <!--<div class="col-md-1"></div>-->
+
+
+        <!-- 1. 筛选器-->
+        <div class="col-md-5 col-sm-6 sel-container">
+            <!-- 1.1 维度选择器-->
+            <div class="sel-container-big">
+                <!-- 1.1.1大维度选择器：地点／时间-->
+                <div class="sel-container-big-formgroup">
+                    <span class="sel-container-big-span">选择维度</span>
+                    <select class="form-control sel-container-big-form" id="sel-container-big-select-dimension">
+                        <option id="form-location">地点维度</option>
+                        <option id="form-time">时间维度</option>
+                    </select>
+                </div>
+                <!-- 1.1.2小维度选择器-->
+                <div class="sel-container-big-formgroup">
+                    <span class="sel-container-big-span">选择粒度</span>
+                    <!-- 1.1.2.1 地点维度小粒度-->
+                    <select class="form-control sel-container-big-form" id="sel-container-big-select-location">
+                        <option>区粒度</option>
+                        <option>点粒度</option>
+                    </select>
+                    <!-- 1.1.2.2 时间维度小粒度-->
+                    <select class="form-control sel-container-big-form" id="sel-container-big-select-time" style="display: none;">
+                        <option>日</option>
+                        <option id="form-time-week">周</option>
+                        <option disabled>月份（未开放）</option>
+                        <option disabled>季度（未开放）</option>
+                        <option disabled>年份（未开放）</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- 1.2 细节选择器-->
+            <div class="sel-container-detail">
+                <!-- 1.2.1 Location-Formgroup：地点细节-->
+                <div class="sel-container-detail-location-formgroup">
+                    <span class="sel-container-detail-span">可选地点</span>
+                    <!-- 1.2.1.1区粒度-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-location-area" style="display: inline-block;">
+                        <option>全&nbsp;&nbsp;局</option>
+                        <option>黄浦区</option>
+                        <option>徐汇区</option>
+                        <option>长宁区</option>
+                        <option>静安区</option>
+                        <option>普陀区</option>
+                        <option>虹口区</option>
+                        <option>杨浦区</option>
+                        <option>闵行区</option>
+                        <option>宝山区</option>
+                        <option>嘉定区</option>
+                        <option>浦东新区</option>
+                        <option>金山区</option>
+                        <option>松江区</option>
+                        <option>青浦区</option>
+                        <option>奉贤区</option>
+                    </select>
+                    <!-- 1.2.1.2 点粒度-->
+                    <input type="text" maxlength="10" class="form-control sel-container-detail-input" id="sel-container-detail-location-keyword" placeholder="关键词" style="display: none">
+                    <button type="submit" class="btn btn-default sel-container-detail-submit" id='sel-container-detail-submit' style="display: none">查询</button>
+                </div>
+
+                <!-- 1.2.2 Time-Formgroup：时间细节-->
+                <div class="sel-container-detail-time-formgroup">
+                    <span class="sel-container-detail-span">可选时间</span>
+                    <!-- 1.2.2.1年份-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-time-year">
+                        <option disabled>2015</option>
+                        <option disabled>2016（当前年份）</option>
+                    </select>
+                    <!-- 1.2.2.2 季度-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-time-quarter">
+                        <option disabled>第一季度</option>
+                        <option disabled>第二季度</option>
+                        <option disabled>第三季度</option>
+                        <option disabled>第四季度</option>
+                    </select>
+                    <!-- 1.2.2.3 月份-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-time-month">
+                        <option disabled>今年1月</option>
+                        <option disabled>今年2月</option>
+                        <option>今年3月（当前月份）</option>
+                        <option disabled>今年4月</option>
+                        <option disabled>今年5月</option>
+                        <option disabled>今年6月</option>
+                        <option disabled>今年7月</option>
+                        <option disabled>今年8月</option>
+                        <option disabled>今年9月</option>
+                        <option disabled>今年10月</option>
+                        <option disabled>今年11月</option>
+                        <option disabled>今年12月</option>
+                    </select>
+                    <!-- 1.2.2.4 周-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-time-week">
+                        <option value="dateStart=2016-03-01&dateEnd=2016-03-06" selected>当月第一周（本周）</option>
+                        <option value="dateStart=2016-03-07&dateEnd=2016-03-13">当月第二周</option>
+                        <option value="dateStart=2016-03-14&dateEnd=2016-03-20">当月第三周</option>
+                        <option value="dateStart=2016-03-21&dateEnd=2016-03-27">当月第四周</option>
+                        <option value="dateStart=2016-03-28&dateEnd=2016-03-31">当月第五周</option>
+                    </select>
+                    <!-- 1.2.2.5 日-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-time-day"  style="display: inline-block;">
+                        <option value="2016-03-01" selected>16年3月1日</option>
+                        <option value="2016-03-02">16年3月2日</option>
+                        <option value="2016-03-03">16年3月3日</option>
+                        <option value="2016-03-04">16年3月4日</option>
+                        <option value="2016-03-05">16年3月5日</option>
+                        <option value="2016-03-06">16年3月6日</option>
+                        <option value="2016-03-07">16年3月7日</option>
+                        <option value="2016-03-08">16年3月8日</option>
+                        <option value="2016-03-09">16年3月9日</option>
+                        <option value="2016-03-10">16年3月10日</option>
+                        <option value="2016-03-11">16年3月11日</option>
+                        <option value="2016-03-12">16年3月12日</option>
+                        <option value="2016-03-13">16年3月13日</option>
+                        <option value="2016-03-14">16年3月14日</option>
+                        <option value="2016-03-15">16年3月15日</option>
+                        <option value="2016-03-16">16年3月16日</option>
+                        <option value="2016-03-17">16年3月17日</option>
+                        <option value="2016-03-18">16年3月18日</option>
+                        <option value="2016-03-19">16年3月19日</option>
+                        <option value="2016-03-20">16年3月20日</option>
+                        <option value="2016-03-21">16年3月21日</option>
+                        <option value="2016-03-22">16年3月22日</option>
+                        <option value="2016-03-23">16年3月23日</option>
+                        <option value="2016-03-24">16年3月24日</option>
+                        <option value="2016-03-25">16年3月25日</option>
+                        <option value="2016-03-26">16年3月26日</option>
+                        <option value="2016-03-27">16年3月27日</option>
+                        <option value="2016-03-28">16年3月28日</option>
+                        <option value="2016-03-29">16年3月29日</option>
+                        <option value="2016-03-30">16年3月30日</option>
+                        <option value="2016-03-31">16年3月31日</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2.统计表-->
+        <div class="col-md-10 col-sm-10 stat-container">
+            <!-- 统计表顶部标记-->
+            <div class="stat-container-headTip">
+                <span class="stat-container-headTip-span">显示维度</span>
+                <span class="stat-container-headTip-span-info" id="stat-info">地点维度-
+                    <span class="stat-container-headTip-span-info-locationlevel">区粒度</span>-
+                    <span class="stat-container-headTip-span-info-spot">全局</span>，时间维度-
+                    <span class="stat-container-headTip-span-info-timelevel">日</span>-
+                    <span class="stat-container-headTip-span-info-timepoint">周一</span>
+                </span>
+                <span style="display: none;" class="stat-container-headTip-span-info" id="exception-info">本异常模块暂只开上海市全局的日异常查看</span>
+                <span class="stat-container-headTip-expectionBtn" id="stat-container-headTip-expectionBtn-check">查看异常信息</span>
+                <span class="stat-container-headTip-expectionBtn" id="stat-container-headTip-expectionBtn-back">查看统计信息</span>
+            </div>
+
+
+            <!-- 2.1 analysis table：统计表格-->
+            <div class="stat-container-tableContainer" id="stat-container-analysis">
+                <div style="display: inline-block;width: 100%;overflow-x: scroll">
+
+                    <table class="table stat-container-tableContainer-table stat-container-tableContainer-table-left">
+                        <tbody>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-firstCol">时间</td>
+                        </tr>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-firstCol">黑洞数</td>
+                        </tr>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-firstCol">火山数</td>
+                        </tr>
+
+                        <!--<tr>-->
+                            <!--<td class="stat-container-tableContainer-table-firstCol">综合指数</td>-->
+                        <!--</tr>-->
+                    </table>
+
+                    <table class="table stat-container-tableContainer-table stat-container-tableContainer-table-right">
+                        <tbody>
+                            <tr id="stat-container-tableContainer-table-right-dateRow">
+                                <!-- 日期-->
+                                <!--<td align="middle">2016/10/18</td>-->
+                            </tr>
+                            <tr id="stat-container-tableContainer-table-right-blackholeNumRow">
+                                <!-- 黑洞数-->
+                                <!--<td align="middle">75</td>-->
+                            </tr>
+                            <tr  id="stat-container-tableContainer-table-right-volcanoNumRow">
+                                <!-- 火山数-->
+                                <!--<td align="middle" class="stat-container-tableContainer-table-lastRow">？？？？</td>-->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+            </div>
+            <!-- 2.2 exception table：异常表格-->
+            <div class="stat-container-tableContainer" id="stat-container-exception">
+                <div style="display: block;width: 100%;overflow-y: scroll">
+                    <table class="table stat-container-tableContainer-table stat-container-tableContainer-table-top">
+                        <tbody>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-bottom-td1">时间</td>
+                            <td class="stat-container-tableContainer-table-bottom-td2">类型</td>
+                            <td class="stat-container-tableContainer-table-bottom-td3">具体经纬度</td>
+                            <td class="stat-container-tableContainer-table-bottom-td4">相关地点</td>
+                            <td class="stat-container-tableContainer-table-bottom-td5">查看</td>
+                            <td class="stat-container-tableContainer-table-bottom-td6">异常描述</td>
+                        </tr>
+
+                    </table>
+
+                    <table class="table stat-container-tableContainer-table stat-container-tableContainer-table-bottom">
+                        <tbody>
+                            <!--<tr>-->
+                                <!--<td align="center" class="stat-container-tableContainer-table-bottom-td1">2016/10/18&nbsp;20:00</td>-->
+                                <!--<td align="middle" class="stat-container-tableContainer-table-bottom-td2">黑洞</td>-->
+                                <!--<td align="middle" class="stat-container-tableContainer-table-bottom-td3">11.111111<br>11.111111</td>-->
+                                <!--<td align="middle" class="stat-container-tableContainer-table-bottom-td4">南京东路<br>哈哈哈大学</td>-->
+                                <!--<td align="middle" class="stat-container-tableContainer-table-bottom-td5"><a href="" class="jumpToMap">点击跳转</a></td>-->
+                                <!--<td align="middle" class="stat-container-tableContainer-table-bottom-td6">主要来自xxx地点</td>-->
+                            <!--</tr>-->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="loading"><span>加载中...</span></div>
+
+
+        </div>
+
+    </div>
+
+    <script>
+        // 3. 关键Javascript
+
+        // 页面状态：analysis，exception
+        pagestate = 'analysis'
+        //时间查询状态
+        timestate = 'day'
+        // 上海各区经纬度
+        areaLL = {
+            "黄浦区": [31.237372, 121.491194],
+            "徐汇区":[31.194616,    121.443266]   ,
+            "长宁区":[ 31.226487,    121.430394,]  ,
+            "静安区":[31.22977,    121.462365]  ,
+            "普陀区":[31.255173,    121.403569] ,
+            "虹口区":[31.270157,    121.511736]  ,
+            "杨浦区":[31.265486,    121.532609]  ,
+            "闵行区":[31.118893,    121.388672]  ,
+            "宝山区":[31.410955,    121.495971]  ,
+            "嘉定区":[31.380476,    121.272804]  ,
+            "浦东新区":[31.167579,    121.491948]  ,
+            "金山区":[30.747995,    121.348902]  ,
+            "松江区":[31.038472,    121.233011]  ,
+            "青浦区":[31.155541,    121.130814],
+            "奉贤区":[30.923948,    121.480604]}
+        // 3.1 页面初始化
+        $(document).ready(function()
+                {
+                    // 设置浏览器窗口高度，宽度
+                    windowHeight = $(window).height();
+                    windowWidth = $(window).width();
+                    $('#mainview').css('height',windowHeight-74+'px')
+                    $('#mainview').css('width',windowWidth+'px')
+                    //console.log('windowWidth:'+windowWidth+'px')
+
+                    // 根据表格内容设置表格宽度，单元格最大宽度不超过106px，右侧table最大宽度不超过745px，stat容器不超过830px。
+                    // 暂时取消自适应，设置为696px
+                    $('.stat-container-tableContainer-table-right').css('width','696px')
+                    //table_right_td_width = parseInt($('.stat-container-tableContainer-table-right tbody tr td').css('width').split('px')[0])
+                    //console.log('table_right_td_width',table_right_td_width)
+                    //set_table_right_width = (table_right_td_width+3)*7
+                    //if(windowWidth>=1182){
+                    //    set_table_right_width = (table_right_td_width+3)*7
+                    //}else if(windowWidth<=1182 && windowWidth>=(1182-1*table_right_td_width)){
+                    //    set_table_right_width = (table_right_td_width+3)*6
+                    //}else if(windowWidth<=(1182-1*table_right_td_width) && windowWidth>=(1182-2*table_right_td_width)){
+                    //    set_table_right_width = (table_right_td_width+3)*5
+                    //}else if(windowWidth<=(1182-2*table_right_td_width) && windowWidth>=(1182-3*table_right_td_width)){
+                    //    set_table_right_width = (table_right_td_width+3)*4
+                    //}else if(windowWidth<=(1182-3*table_right_td_width) && windowWidth>=(1182-4*table_right_td_width)){
+                    //    set_table_right_width = (table_right_td_width+3)*3
+                    //}else{
+                    //    set_table_right_width = (table_right_td_width+3)*2
+                    //}
+                    //if(set_table_right_width<=370){
+                    //    // 370-15-82 = 273
+                    //    set_table_right_width = 273
+                    //}else{}
+                    //$('.stat-container-tableContainer-table-right').css('width',set_table_right_width+'px')
+                    //$('.stat-container-tableContainer').css('width',set_table_right_width+82+15+'px') // 82为.stat-container-tableContainer-table-left宽度，15为padding
+                    //$('.stat-container-headTip').css('width',set_table_right_width+82+15+'px') // 82为.stat-container-tableContainer-table-left宽度，15为padding
+
+                    // 初始化，查询一次全局统计
+                    date = $('#sel-container-detail-time-day').val()
+
+                    requestsDay('','',3,date)
+                    // 初始化，查询一次全局异常
+                    requestDayE('','',date)
+                }
+        )
+
+
+        // --------------------------------------------------------------------------------- //
+        // 3.2 监听选择器: 时间 or 地点
+        $("#sel-container-big-select-dimension").change(function(){
+            selVal = $("#sel-container-big-select-dimension").val()
+            // 时间维度
+            if(selVal=='时间维度'){
+                $('#sel-container-big-select-time').css('display','inline-block') //粒度维度选择器
+                $('.sel-container-detail-time-formgroup').css('display','inline-block') //detail维度选择器
+                $('#sel-container-big-select-location').css('display','none')
+                $('.sel-container-detail-location-formgroup').css('display','none') //detail维度选择器
+                
+            }
+            // 地点维度
+            else{
+                $('#sel-container-big-select-location').css('display','inline-block')
+                $('.sel-container-detail-location-formgroup').css('display','inline-block') //detail维度选择器
+                $('#sel-container-big-select-time').css('display','none')
+                $('.sel-container-detail-time-formgroup').css('display','none') //detail维度选择器
+            }
+        })
+        // --------------------
+        // 3.2.1 监听时间维度-粒度选择
+        $("#sel-container-big-select-time").change(function(){
+            selVal = $("#sel-container-big-select-time").val()
+            if(selVal=='年份'){
+                this_val = $('#sel-container-detail-time-year').val()
+                $('.sel-container-detail-time-formgroup .sel-container-detail-form').css('display','none')
+                $('#sel-container-detail-time-year').css('display','inline-block')
+                $('.stat-container-headTip-span-info-timelevel').text(selVal) //设置时间粒度
+                $('.stat-container-headTip-span-info-timepoint').text(this_val) //设置选中的时间粒度detail
+            }else if(selVal=='季度'){
+                this_val = $('#sel-container-detail-time-quarter').val()
+                $('.sel-container-detail-time-formgroup .sel-container-detail-form').css('display','none')
+                $('#sel-container-detail-time-quarter').css('display','inline-block')
+                $('.stat-container-headTip-span-info-timelevel').text(selVal) //设置时间粒度
+                $('.stat-container-headTip-span-info-timepoint').text(this_val) //设置选中的时间粒度detail
+            }else if(selVal=='月份'){
+                this_val = $('#sel-container-detail-time-month').val()
+                $('.sel-container-detail-time-formgroup .sel-container-detail-form').css('display','none')
+                $('#sel-container-detail-time-month').css('display','inline-block')
+                $('.stat-container-headTip-span-info-timelevel').text(selVal) //设置时间粒度
+                $('.stat-container-headTip-span-info-timepoint').text(this_val) //设置选中的时间粒度detail
+            }else if(selVal=='周'){
+                this_val = $('#sel-container-detail-time-week :selected').text()
+                $('.sel-container-detail-time-formgroup .sel-container-detail-form').css('display','none')
+                $('#sel-container-detail-time-week').css('display','inline-block')
+                $('.stat-container-headTip-span-info-timelevel').text(selVal) //设置时间粒度
+                $('.stat-container-headTip-span-info-timepoint').text(this_val) //设置选中的时间粒度detail
+                // requestWeek
+                dayDate = $('#sel-container-detail-time-week').val()
+                dayStart = dayDate.split('&')[0].split('=')[1]
+                dayEnd = dayDate.split('&')[1].split('=')[1]
+                // 获取此时的位置
+                locationType = $('#sel-container-big-select-location').val()
+                locationVal = $('#sel-container-detail-location-area').val()
+                // 统计查询
+                 if(locationType=='区粒度'){
+                    if(locationVal.indexOf('局')!=-1){
+                        if(pagestate=='analysis'){
+                            requestWeek('','',3,dayStart,dayEnd)
+                        }else{
+                            // 异常查询
+                            alert('本异常模块暂只开上海市区粒度异常信息查看与日异常查看')
+                        }
+
+                    }else{
+                        latitude = areaLL[locationVal][0]
+                        longitude = areaLL[locationVal][1]
+                        if(pagestate=='analysis'){
+                            requestWeek(latitude,longitude,2,dayStart,dayEnd)
+                        }else{
+                            // 异常查询
+                            alert('本异常模块暂只开上海市区粒度异常信息查看与日异常查看')
+                        }
+                    }
+                }else if(locationType=='点粒度'){
+                    // 百度地图ak
+                    ak = '6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM'
+                    // 未开放
+                }else{}
+            }else if(selVal=='日'){
+                this_val = $('#sel-container-detail-time-day :selected').text()
+                $('.sel-container-detail-time-formgroup .sel-container-detail-form').css('display','none')
+                $('#sel-container-detail-time-day').css('display','inline-block')
+                $('.stat-container-headTip-span-info-timelevel').text(selVal) //设置时间粒度
+                $('.stat-container-headTip-span-info-timepoint').text(this_val) //设置选中的时间粒度detail
+                // requestDay
+                dayDate = $('#sel-container-detail-time-day').val()
+                // 获取此时的位置
+                locationType = $('#sel-container-big-select-location').val()
+                locationVal = $('#sel-container-detail-location-area').val()
+                if(locationType=='区粒度'){
+                    if(locationVal.indexOf('局')!=-1){
+                        if(pagestate=='analysis'){
+                            requestsDay('','',3,dayDate)
+                        }else{
+                            // 异常查询
+                            requestDayE('','',dayDate)
+                        }
+                    }else{
+                        latitude = areaLL[locationVal][0]
+                        longitude = areaLL[locationVal][1]
+                        if(pagestate=='analysis'){
+                            requestsDay(latitude,longitude,2,dayDate)
+                        }else{
+                            // 异常查询
+                            requestDayE(latitude,longitude,dayDate)
+
+                        }
+
+                    }
+                }else if(locationType=='点粒度'){
+                    // 百度地图ak
+                    ak = '6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM'
+                    // 未开放
+                }else{}
+            }
+        })
+        // 3.2.1.1 监听日按钮变化
+        $('#sel-container-detail-time-day').change(function(){
+            selTxt = $('#sel-container-detail-time-day :selected').text()
+            $('.stat-container-headTip-span-info-timepoint').text(selTxt) //设置选中的时间粒度detail
+            dayDate = $(this).val()
+            // 获取此时的位置
+            locationType = $('#sel-container-big-select-location').val()
+            locationVal = $('#sel-container-detail-location-area').val()
+            if(locationType=='区粒度'){
+                if(locationVal.indexOf('局')!=-1){
+                    if(pagestate=='analysis'){
+                        requestsDay('','',3,dayDate)
+                    }else{
+                        requestDayE('','',dayDate)
+                        // 异常查询
+                    }
+
+                }else{
+                    latitude = areaLL[locationVal][0]
+                    longitude = areaLL[locationVal][1]
+                    if(pagestate=='analysis'){
+                        requestsDay(latitude,longitude,2,dayDate)
+                    }else{
+                        // 异常查询
+                        requestDayE(latitude,longitude,dayDate)
+                    }
+                }
+            }else if(locationType=='点粒度'){
+                // 百度地图ak
+                ak = '6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM'
+            }else{}
+        })
+        // 3.2.1.2 监听周按钮变化
+        $('#sel-container-detail-time-week').change(function(){
+            selTxt = $('#sel-container-detail-time-week :selected').text()
+            $('.stat-container-headTip-span-info-timepoint').text(selTxt) //设置选中的时间粒度detail
+            dayDate = $(this).val()
+            dayStart = dayDate.split('&')[0].split('=')[1]
+            dayEnd = dayDate.split('&')[1].split('=')[1]
+
+            // 获取此时的位置
+            locationType = $('#sel-container-big-select-location').val()
+            locationVal = $('#sel-container-detail-location-area').val()
+            if(locationType=='区粒度'){
+                if(locationVal.indexOf('局')!=-1){
+                    if(pagestate=='analysis'){
+                        requestWeek('','',3,dayStart,dayEnd)
+                    }else{
+                        // 异常查询
+                        alert('本异常模块暂只开上海市区粒度异常信息查看与日异常查看')
+                    }
+
+                }else{
+                    latitude = areaLL[locationVal][0]
+                    longitude = areaLL[locationVal][1]
+                    if(pagestate=='analysis'){
+                        requestWeek(latitude,longitude,2,dayStart,dayEnd)
+                    }else{
+                        // 异常查询
+                        alert('本异常模块暂只开上海市区粒度异常信息查看与日异常查看')
+
+                    }
+
+                }
+
+
+            }else if(locationType=='点粒度'){
+                // 百度地图ak
+                ak = '6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM'
+            }else{}
+
+
+
+        })
+        // --------------------
+        // 3.2.2监听地点维度-粒度选择
+        $("#sel-container-big-select-location").change(function(){
+            selVal = $("#sel-container-big-select-location").val()
+            if(selVal=='区粒度'){
+                $('#sel-container-detail-location-keyword').css('display','none')
+                $('.sel-container-detail-submit').css('display','none')
+                $('#sel-container-detail-location-area').css('display','inline-block')
+            }else if(selVal=='点粒度'){
+                $('#sel-container-detail-location-area').css('display','none')
+                $('#sel-container-detail-location-keyword').css('display','inline-block')
+                $('.sel-container-detail-submit').css('display','inline-block')
+            }else{}
+        })
+        // 3.2.2.1 监听区粒度sel
+        $('#sel-container-detail-location-area').change(function(){
+            levelSelVal = $("#sel-container-big-select-location").val() //粒度选择器Val
+            selVal = $("#sel-container-detail-location-area").val() //area细节选择器Val
+            $('.stat-container-headTip-span-info-locationlevel').text(levelSelVal)
+            $('.stat-container-headTip-span-info-spot').text(selVal)
+            // 查询
+            if(timestate=='day') {
+                dayDate = $('#sel-container-detail-time-day').val()
+                locationVal = $('#sel-container-detail-location-area').val()
+                if (locationVal.indexOf('局') != -1) {
+                    if(pagestate=='analysis'){
+                        requestsDay('', '', 3, dayDate)
+                    }else{
+                        // 异常查询
+                        requestDayE('','',dayDate)
+                    }
+                } else {
+                    // 已开放区查询，待修改。
+                    latitude = areaLL[locationVal][0]
+                    longitude = areaLL[locationVal][1]
+                    if(pagestate=='analysis'){
+                        requestsDay(latitude, longitude, 2, dayDate)
+                    }else{
+                        // 异常查询
+                        requestDayE(latitude,longitude,dayDate)
+                    }
+                }
+            }else if(timestate=='week'){
+                dayDate = $('#sel-container-detail-time-week').val()
+                dayStart = dayDate.split('&')[0].split('=')[1]
+                dayEnd = dayDate.split('&')[1].split('=')[1]
+                locationVal = $('#sel-container-detail-location-area').val()
+                if(locationVal.indexOf('局')!=-1){
+                    if(pagestate=='analysis'){
+                        requestWeek('','',3,dayStart,dayEnd)
+                    }else{
+                        // 异常查询
+                        alert('本异常模块暂只开上海市区粒度异常信息查看与日异常查看')
+                    }
+                }else{
+                    // 已开放区查询，待修改。
+                    latitude = areaLL[locationVal][0]
+                    longitude = areaLL[locationVal][1]
+                    if(pagestate=='analysis'){
+                        requestWeek(latitude,longitude,2,dayStart,dayEnd)
+                    }else{
+                        // 异常查询
+                        alert('本异常模块暂只开上海市区粒度异常信息查看与日异常查看')
+
+                    }
+
+                }
+            }else{}
+        })
+        // 3.2.2.2 监听点粒度关键词
+        $('#sel-container-detail-submit').click(function(){
+            // 关键词
+            //selVal = $('#sel-container-detail-location-keyword').val()
+            //$('.stat-container-headTip-span-info-locationlevel').text('点粒度')
+            //$('.stat-container-headTip-span-info-spot').text(selVal)
+            alert('地点查询暂未开放，敬请期待。')
+        })
+
+
+        // --------------------------------------------------------------------------------- //
+        // 3.3 根据选择器，请求数据
+        // --------------------
+        // 3.3.1 统计数据
+        // 3.3.1.1 请求日统计数据
+        function requestsDay(latitude,longtitude,level,date){
+            host = 'http://182.254.148.45:8080/soda'
+            console.log('请求：'+host + '/summary/point/day?date='+date+'&latitude=' + latitude + '&longitude=' + longtitude)
+            if(level!=3){
+                $.ajax({
+                    type : 'GET',
+//                url : host + '/system/dayState?latitude=' + latitude + '&longitude=' + longtitude +'&level=' + level
+                    url : host + '/summary/point/day?date='+date+'&latitude=' + latitude + '&longitude=' + longtitude
+                    + '&date=' + date,
+                    dataType : "json",
+//                async:false,&
+                    beforeSend:function(){
+                        timestate = 'day'
+                        $('.stat-container-tableContainer-table-right').fadeOut(500)
+                        $('.loading').fadeIn(500)
+                        $('#stat-container-tableContainer-table-right-dateRow').empty()
+                        $('#stat-container-tableContainer-table-right-blackholeNumRow').empty()
+                        $('#stat-container-tableContainer-table-right-volcanoNumRow').empty()
+                    },
+                    error:function(XMLHttpRequests, textStatus){
+                        console.log(XMLHttpRequests)
+                        console.log(textStatus)
+                        alert('数据加载失败! '+textStatus+','+XMLHttpRequests.status)
+                    },
+                    success : function(data) {
+                        console.log('SUCCESS!')
+                        date = data.data.date.split(',')[0]
+                        blackholeNumSum = data.data.blackholeNumSum
+                        volcanoNumSum = data.data.volcanoNumSum
+                        //插入数据
+                        $('#stat-container-tableContainer-table-right-dateRow').append("<td align='middle'>"+date+"</td>>")
+                        $('#stat-container-tableContainer-table-right-blackholeNumRow').append("<td align='middle'>"+blackholeNumSum+"</td>>")
+                        $('#stat-container-tableContainer-table-right-volcanoNumRow').append("<td align='middle' class='stat-container-tableContainer-table-lastRow'>"+volcanoNumSum+"</td>>")
+                        $('.loading').fadeOut(500)
+                        $('.stat-container-tableContainer-table-right').fadeIn(500)
+                        tableAlign('stat')
+                    }
+                });
+            }
+            // 全局模式
+            else{
+                $.ajax({
+                    type : 'GET',
+                    url : host + '/system/dayCurve?latitude=0&longitude=0&date='+date,
+                    dataType : "json",
+//                async:false,&
+                    beforeSend:function(){
+                        timestate = 'day'
+                        $('.stat-container-tableContainer-table-right').fadeOut(500)
+                        $('.loading').fadeIn(500)
+                        $('#stat-container-tableContainer-table-right-dateRow').empty()
+                        $('#stat-container-tableContainer-table-right-blackholeNumRow').empty()
+                        $('#stat-container-tableContainer-table-right-volcanoNumRow').empty()
+                    },
+                    error:function(XMLHttpRequests, textStatus){
+                        console.log(XMLHttpRequests)
+                        console.log(textStatus)
+                        alert('数据加载失败! '+textStatus+','+XMLHttpRequests.status)
+                    },
+                    success : function(data) {
+                        console.log('SUCCESS!')
+                        date = data.data.date
+                        blackholeNumSum = data.data.blackholeNumSum
+                        volcanoNumSum = data.data.volcanoNumSum
+                        //插入数据
+                        $('#stat-container-tableContainer-table-right-dateRow').append("<td align='middle'>"+date+"</td>>")
+                        $('#stat-container-tableContainer-table-right-blackholeNumRow').append("<td align='middle'>"+blackholeNumSum+"</td>>")
+                        $('#stat-container-tableContainer-table-right-volcanoNumRow').append("<td align='middle' class='stat-container-tableContainer-table-lastRow'>"+volcanoNumSum+"</td>>")
+                        $('.loading').fadeOut(500)
+                        $('.stat-container-tableContainer-table-right').fadeIn(500)
+                        tableAlign('stat')
+                    }
+                });
+            }
+
+        }
+        // 3.3.1.2 请求周数据
+        function requestWeek(latitude,longitude,level,dateStart,dateEnd){
+            host = 'http://182.254.148.45:8080/soda'
+            if(level!=3){
+                console.log('请求：'+host+'/summary/point/period?dateStart='+ dateStart +'&dateEnd='+dateEnd + '&latitude='+latitude + '&longitude=' + longitude)
+                $.ajax({
+                    type:'GET',
+//                url : host+'/system/weekState?latitude=' + latitude + '&longitude=' + longitude +'&level=' + level + '&dateStart=' + dateStart + '&dateEnd=' + dateEnd,
+                    url : host+'/summary/point/period?dateStart='+ dateStart +'&dateEnd='+dateEnd + '&latitude='+latitude + '&longitude=' + longitude,
+                    dataType : "json",
+//                async:false,
+                    beforeSend:function(){
+                        timestate = 'week'
+                        $('.stat-container-tableContainer-table-right').fadeOut(500)
+                        $('.loading').fadeIn(500)
+                        $('#stat-container-tableContainer-table-right-dateRow').empty()
+                        $('#stat-container-tableContainer-table-right-blackholeNumRow').empty()
+                        $('#stat-container-tableContainer-table-right-volcanoNumRow').empty()
+                    },
+                    error:function(XMLHttpRequests, textStatus){
+                        console.log(XMLHttpRequests)
+                        console.log(textStatus)
+                        alert('数据加载失败! '+textStatus+','+XMLHttpRequests.status)
+                    },
+                    success : function(data) {
+                        console.log('SUCCESS!')
+                        console.log(data)
+                        datesData = data.data.dayState
+                        blackholeNumSum = data.data.blackholeNumSum
+                        volcanoNumSum = data.data.volcanoNumSum
+                        for(i=0;i<datesData.length;i++){
+                            console.log(datesData[i])
+                            this_date = datesData[i].date
+                            this_blackholeNum = datesData[i].blackholeNum
+                            this_volcanoNum = datesData[i].volcanoNum
+                            $('#stat-container-tableContainer-table-right-dateRow').append("<td align='middle'>"+this_date+"</td>>")
+                            $('#stat-container-tableContainer-table-right-blackholeNumRow').append("<td align='middle'>"+this_blackholeNum+"</td>>")
+                            $('#stat-container-tableContainer-table-right-volcanoNumRow').append("<td align='middle' class='stat-container-tableContainer-table-lastRow'>"+this_volcanoNum+"</td>>")
+
+                        }
+                        //插入数据
+                        $('#stat-container-tableContainer-table-right-dateRow').append("<td align='middle'>"+$('#sel-container-detail-time-week :selected').text()+"</td>>")
+                        $('#stat-container-tableContainer-table-right-blackholeNumRow').append("<td align='middle'>"+blackholeNumSum+"</td>>")
+                        $('#stat-container-tableContainer-table-right-volcanoNumRow').append("<td align='middle' class='stat-container-tableContainer-table-lastRow'>"+volcanoNumSum+"</td>>")
+                        $('.loading').fadeOut(500)
+                        $('.stat-container-tableContainer-table-right').fadeIn(500)
+                    }
+                })
+            }else{
+                console.log('请求：'+host+'/system/periodCurve?latitude=0&longitude=0&dateStart='+ dateStart +'&dateEnd='+dateEnd)
+                //周全局
+                $.ajax({
+                    type:'GET',
+//                url : host+'/system/weekState?latitude=' + latitude + '&longitude=' + longitude +'&level=' + level + '&dateStart=' + dateStart + '&dateEnd=' + dateEnd,
+                    url : host+'/system/periodCurve?latitude=0&longitude=0&dateStart='+ dateStart +'&dateEnd='+dateEnd,
+                    dataType : "json",
+//                async:false,
+                    beforeSend:function(){
+                        timestate = 'week'
+                        $('.stat-container-tableContainer-table-right').fadeOut(500)
+                        $('.loading').fadeIn(500)
+                        $('#stat-container-tableContainer-table-right-dateRow').empty()
+                        $('#stat-container-tableContainer-table-right-blackholeNumRow').empty()
+                        $('#stat-container-tableContainer-table-right-volcanoNumRow').empty()
+                    },
+                    error:function(XMLHttpRequests, textStatus){
+                        console.log(XMLHttpRequests)
+                        console.log(textStatus)
+                        alert('数据加载失败! '+textStatus+','+XMLHttpRequests.status)
+                    },
+                    success : function(data) {
+                        console.log('SUCCESS!')
+                        console.log(data)
+                        datesData = data.data.dayState
+                        blackholeNumSum = data.data.blackholeNumSum
+                        volcanoNumSum = data.data.volcanoNumSum
+                        for(i=0;i<datesData.length;i++){
+                            console.log(datesData[i])
+                            this_date = datesData[i].date
+                            this_blackholeNum = datesData[i].blackholeNum
+                            this_volcanoNum = datesData[i].volcanoNum
+                            $('#stat-container-tableContainer-table-right-dateRow').append("<td align='middle'>"+this_date+"</td>>")
+                            $('#stat-container-tableContainer-table-right-blackholeNumRow').append("<td align='middle'>"+this_blackholeNum+"</td>>")
+                            $('#stat-container-tableContainer-table-right-volcanoNumRow').append("<td align='middle' class='stat-container-tableContainer-table-lastRow'>"+this_volcanoNum+"</td>>")
+
+                        }
+                        //插入数据
+                        $('#stat-container-tableContainer-table-right-dateRow').append("<td align='middle'>"+$('#sel-container-detail-time-week :selected').text()+"</td>>")
+                        $('#stat-container-tableContainer-table-right-blackholeNumRow').append("<td align='middle'>"+blackholeNumSum+"</td>>")
+                        $('#stat-container-tableContainer-table-right-volcanoNumRow').append("<td align='middle' class='stat-container-tableContainer-table-lastRow'>"+volcanoNumSum+"</td>>")
+                        $('.loading').fadeOut(500)
+                        $('.stat-container-tableContainer-table-right').fadeIn(500)
+                    }
+                })
+            }
+
+        }
+        // --------------------
+        // 3.3.2 异常数据
+        // 3.3.2.1 请求日异常，待修改
+        function requestDayE(latitude,longitude,date){
+            host = 'http://182.254.148.45:8080/soda'
+            console.log('请求：'+host + '/exception/day?date='+date)
+            $.ajax({
+                type : 'GET',
+//                url : host + '/system/dayException?latitude='+latitude+'&longitude='+longitude+'&date='+date,
+                url : host + '/exception/day?date='+date,
+                dataType : "json",
+                beforeSend:function(){
+                    timestate = 'day'
+                    $('.stat-container-tableContainer-table-bottom').fadeOut(500)
+                    $('.loading').fadeIn(500)
+                    $('.stat-container-tableContainer-table-bottom tbody').empty()
+                },
+                error:function(XMLHttpRequests, textStatus){
+                    console.log(XMLHttpRequests)
+                    console.log(textStatus)
+                    alert('数据加载失败! '+textStatus+','+XMLHttpRequests.status)
+                },
+                success : function(data) {
+                    console.log('SUCCESS!')
+                    console.log(data)
+                    datas = data.data
+                    for(i=0;i<datas.length;i++){
+                        this_date = datas[i].date
+                        this_lat = datas[i].latitude.toFixed(6)
+                        this_lon = datas[i].longitude.toFixed(6)
+                        this_type = ''
+                        if(datas[i].type=='blackhole'){
+                            this_type = '黑洞'
+                        }else if(datas[i].type=='volcano'){
+                            this_type = '火山'
+                        }else{}
+                        this_name = datas[i].locationName
+                        this_level = datas[i].level
+                        this_inflow = datas[i].inFlow
+                        this_outflow = datas[i].outFlow
+                        this_forward = datas[i].itemForward
+                        this_from = datas[i].itemFrom
+
+                        $('.stat-container-tableContainer-table-bottom tbody').append(
+                                '<tr>' +
+                                '<td align="center" class="stat-container-tableContainer-table-bottom-td1">'+this_date+'</td>' +
+                                '<td align="middle" class="stat-container-tableContainer-table-bottom-td2">'+this_type+'</td>' +
+                                '<td align="middle" class="stat-container-tableContainer-table-bottom-td3">'+this_lon+'<br>'+this_lat+'</td>' +
+                                '<td align="middle" class="stat-container-tableContainer-table-bottom-td4">'+this_name+'</td>' +
+                                '<td align="middle" class="stat-container-tableContainer-table-bottom-td5"><a href="http://182.254.148.45:8080/soda/#" target="_blank" class="jumpToMap">点击跳转</a></td>'+
+                                '<td align="middle" class="stat-container-tableContainer-table-bottom-td6" style="padding: 12px;">主流向：'+this_forward+'<br>主来源：'+this_from+'</td>'+
+                                '</tr>'
+                        )
+                    }
+                    $('.loading').fadeOut(500)
+                    $('.stat-container-tableContainer-table-bottom').fadeIn(500)
+                }
+            });
+        }
+        // 3.3.2.2 请求周异常，未开放
+        function requestWeekE(dateStart,dateEnd){
+            //
+        }
+
+        // 3.4 其他
+        // --------------------
+        // 3.4.1 点击“查看异常信息”按钮
+        $('#stat-container-headTip-expectionBtn-check').click(function(){
+            // fadein作为fadeout的回调
+            $('#stat-container-headTip-expectionBtn-check').fadeOut(function(){
+                $('#stat-container-headTip-expectionBtn-back').fadeIn()
+            })
+            $('.loading').hide()
+            pagestate='exception'
+            $('#stat-container-analysis').slideUp(500,function(){
+                $('#stat-container-exception').slideDown(500)
+            })
+            $('#stat-info').fadeOut(500,function(){
+                $('#exception-info').fadeIn(500)
+            })
+            $('#form-time-week').attr('diasbled','disabled')
+            $('#form-location').attr('diasbled','disabled')
+
+            alert('本异常模块暂只开上海市全局的日异常查看')
+        })
+        // 3.4.2 点击“查看统计信息”按钮
+        $('#stat-container-headTip-expectionBtn-back').click(function(){
+            // fadein作为fadeout的回调
+            $('#stat-container-headTip-expectionBtn-back').fadeOut(function(){
+                $('#stat-container-headTip-expectionBtn-check').fadeIn()
+            })
+            $('.loading').hide()
+            pagestate='analysis'
+            $('#stat-container-exception').slideUp(500,function(){
+                $('#stat-container-analysis').slideDown(500)
+            })
+            $('#exception-info').fadeOut(500,function(){
+                $('#stat-info').fadeIn(500)
+            })
+            $('#form-time-week').attr('diasbled',false)
+            $('#form-location').attr('diasbled',false)
+
+        })
+        // 3.4.3 右侧导航栏初始化
+        $("#jquery-accordion-menu").jqueryAccordionMenu();
+
+//        // 3.4.4 根据经纬度查询地点
+//        function checkPlace(lat,lon){
+//            var map = new BMap.Map("allmap");
+//            // long,lati
+//            //        var point = new BMap.Point(longitude,latitude);
+//            var point = new BMap.Point(121.56097412109375,31.208038330078125);
+//            var gc = new BMap.Geocoder();
+//            place = ''
+//            gc.getLocation(point, function(rs){
+//                var addComp = rs.addressComponents;
+//                alert(addComp.district + ", " + addComp.street + ", " + addComp.streetNumber)
+//            });
+//        }
+//        checkPlace()
+        // 3.4.4 进行表格布局
+        function tableAlign(mode){
+            if(mode=='stat'){
+                childLen = $('#stat-container-tableContainer-table-right-dateRow').children('td').length
+                console.log(childLen)
+            }else{
+
+            }
+
+        }
+
+
+
+
+
+
+    </script>
+</body>
+</html>

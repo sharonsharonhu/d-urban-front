@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Analysis</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+
+    <style>
+
+        @font-face {
+            /* 自定义字体Pingfang SC*/
+            font-family: PingfangSC;
+            src: url('fonts/PingFang%20Regular.ttf');
+        }
+
+        *{
+            margin: 0;
+            padding-bottom: 0;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-top: 0px;
+            /* 定义所有字体为自定义字体Pingfang*/
+            font-family: PingfangSC;
+        }
+
+        body{
+            /* 禁止左右/上下滑动 */
+            overflow-x: hidden;
+            overflow-y: hidden;
+            height: 100%;
+            width: 100%;
+        }
+        .navBar{
+            /* 导航栏高度*/
+            height: 74px;
+            /* 描边*/
+            border: 1px solid rgba(0,0,0,0.95);
+            /* 背景颜色设为黑色*/
+            background-color:black ;
+            /* 阴影*/
+            box-shadow: 5px 5px 5px #888888;
+        }
+        #mainview{
+            /*position: absolute;*/
+            /*top: 74px;*/
+            /*height: 100%;*/
+            /*width: 100%;*/
+            background: url("img/shanghaibg.png") no-repeat;
+            background-size: cover;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+        }
+
+        .shadowCover{
+            /* mainview的遮罩层*/
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+
+        .selectionRow{
+            padding-top:45px ;
+            padding-left:56px;
+
+        }
+        .selection{
+            height: 112px;
+            width: 100%;
+            background-color: black;
+        }
+
+
+        .dimensionSelection{
+            position: relative;
+            height: 56px;
+            width: 100%;
+            background-color: black;
+        }
+        .dimensionSelection .col-md-5{
+            margin-top: 12px;
+        }
+        #dimensionSelectionFormASpan,#dimensionSelectionFormBSpan{
+            position: relative;
+            color: white;
+            font-size: 12px;
+        }
+        .dimensionSelectionForm{
+            position: relative;
+            width: 88px;
+            height: 26px;
+            display: inline-block;
+        }
+        .dimensionSelectionForm .form-control{
+            height: 26px;
+            font-size: 13px;
+            color: rgb(32, 32, 32);
+
+        }
+
+
+        .detailSelection{
+            position: relative;
+            height: 56px;
+            width: 100%;
+            background-color: white;
+            display: none;
+        }
+
+        .detailSelectionForm{
+            position: relative;
+            width: 135px;
+            height: 26px;
+            display: inline-block;
+        }
+        .detailSelectionForm .form-control{
+            height: 26px;
+            font-size: 9px;
+            color: rgb(32, 32, 32);
+
+        }
+        .detailSelectionSpan_location, .detailSelectionSpan_time{
+            position: relative;
+            font-size: 12px;
+        }
+        .detailSelectionSpan_time{
+            position: absolute;
+        }
+        #locationDetail{
+            margin-top: 12px;
+            /*display: none;*/
+        }
+        #timeDetail{
+            margin-top: 12px;
+            display: none;
+        }
+        #timeDetail .detailSelectionForm{
+            display: inline-table;
+        }
+
+        .datetimepicker{
+            background-color: white;
+        }
+        .input-group-addon{
+            padding: 0px 6px;
+        }
+        .detailSelectionForm .form-group{
+            margin-bottom: 0;
+            height: 26px;
+        }
+
+
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+    <!-- 导航条-->
+    <div class="row myNav">
+        <div class="col-md-12 navBar">
+           <h1 style="color: white">NAV</h1>
+        </div>
+    </div>
+
+    <!-- 主视窗-->
+    <div id="mainview">
+        <div class="shadowCover">
+
+        </div>
+        <div class="col-md-5 selectionRow" >
+            <div class="selection">
+                <!-- 维度选择器-->
+                <div class="dimensionSelection">
+                    <!--<div class="col-md-1 col-xs-1"></div>-->
+                    <div class="col-md-5 col-xs-5">
+                        <span id="dimensionSelectionFormASpan">维度</span>
+                        <div class="dimensionSelectionForm">
+                            <select class="form-control" id="dimensionSelect">
+                                <option>地点维度</option>
+                                <option>时间维度</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-xs-5">
+                        <span id="dimensionSelectionFormBSpan">可选粒度</span>
+                        <div class="dimensionSelectionForm">
+                            <select class="form-control"  id="sizeSelect">
+                                <option>全局</option>
+                                <option>区粒度</option>
+                                <option>点粒度</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- 维度下的细节选择器-->
+                <div class="detailSelection">
+                    <!-- 地点维度-->
+                    <div class="col-md-12 col-xs-12" id="locationDetail">
+                        <span class="detailSelectionSpan_location">可选地点</span>
+                        <div class="detailSelectionForm">
+                            <select class="form-control" id="detailSelect_Area">
+                                <option>静安区</option>
+                            </select>
+                        </div>
+                        <div class="detailSelectionForm">
+                            <select class="form-control" id="detailSelect_Road">
+                                <option>静安路</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- 时间维度-->
+                    <!-- 地点维度-->
+                    <div class="col-md-12 col-xs-12" id="timeDetail">
+                        <span class="detailSelectionSpan_time">可选时间</span>
+                        <div class="detailSelectionForm" style="position: absolute;left: 70px;">
+                            <div class="form-group">
+                                <div class="input-group date form_datetime col-md-5"  data-link-field="dtp_input1">
+                                    <input class="form-control" style="width: 135px" size="13" type="text" value="" readonly>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                </div>
+                                <input type="hidden" id="dtp_input1" value="" /><br/>
+                            </div>
+                        </div>
+                        <span class="detailSelectionSpan_time" style="left: 238px;font-size: 14px">至</span>
+                        <div class="detailSelectionForm" style="position: absolute;left: 257px;">
+                            <div class="form-group">
+                                <div class="input-group date form_datetime col-md-5"  data-link-field="dtp_input1">
+                                    <input class="form-control" style="width: 135px" size="13" type="text" value="" readonly>
+                                    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                </div>
+                                <input type="hidden" id="dtp_input2" value="" /><br/>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <script src="js/bootstrap-datetimepicker.min.js"  charset="UTF-8"></script>
+    <script src="js/bootstrap-datetimepicker.zh-CN.js"  charset="UTF-8"></script>
+    <script>
+        $(document).ready(function()
+                {
+                    // 浏览器窗口高度，宽度
+                    windowHeight = $(window).height();
+                    windowWidth = $(window).width();
+                    $('#mainview').css('height',windowHeight-74+'px')
+                    $('#mainview').css('width',windowWidth+'px')
+                }
+        )
+        // 检测维度选择器
+        $("#dimensionSelect").change(function(){
+            selVal = $("#dimensionSelect").val()
+            if(selVal=='时间维度'){
+                $("#sizeSelect").empty();
+                $("#sizeSelect").append('<option>年度</option>')
+                $("#sizeSelect").append('<option>季度</option>')
+                $("#sizeSelect").append('<option>月度</option>')
+                $("#sizeSelect").append('<option>每周</option>')
+                $("#sizeSelect").append('<option>每日</option>')
+
+            }else{
+                $("#sizeSelect").empty();
+                $("#sizeSelect").append('<option>全局</option>')
+                $("#sizeSelect").append('<option>区粒度</option>')
+                $("#sizeSelect").append('<option>点粒度</option>')
+            }
+        })
+        $("#sizeSelect").change(function(){
+            selVal = $("#sizeSelect").val()
+            if(selVal=='区粒度'){
+                $('#detailSelect_Road').css('display','none')
+                $('.detailSelection').css('display','block')
+                $('#locationDetail').css('display','block')
+            }else if(selVal=='点粒度'){
+                $('.detailSelection').css('display','block')
+                $('#locationDetail').css('display','block')
+                $('#detailSelect_Road').css('display','block')
+            }
+        })
+
+
+        $('.form_datetime').datetimepicker({
+            language:  'zh-CN',
+//            weekStart: 1,
+            todayBtn:  1,
+            autoclose: 1,
+            todayHighlight: 1,
+//            startView: 2,
+//            forceParse: 0,
+            showMeridian: 0
+        });
+
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+@font-face {
+    /* 自定义字体Pingfang SC*/
+    font-family: PingfangSC;
+    src: url('../fonts/PingFang%20Regular.ttf');
+}
+
+*{
+    margin: 0;
+    padding-bottom: 0;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    /* 定义所有字体为自定义字体Pingfang*/
+    font-family: PingfangSC;
+}
+
+body{
+    /* 禁止左右/上下滑动 */
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+}
+.navBar{
+    /* 导航栏高度*/
+    height: 74px;
+    /* 描边*/
+    border: 1px solid rgba(0,0,0,0.95);
+    /* 背景颜色设为黑色*/
+    background-color:black ;
+    /* 阴影*/
+    box-shadow: 5px 5px 5px #888888;
+}
+#mainview{
+    background: url("../img/shanghaibg.png") no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+}
+
+.shadowCover{
+    /* mainview的遮罩层*/
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.sel-container{
+    margin-top: 45px; /* 上边距*/
+    height: 112px; /* 高度*/
+    display: block;
+    float: none;
+}
+.container{
+    padding-left: 0px;
+    padding-right: 0px;
+}
+#mainview .container{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Media Query Rules*/
+/* WindowWidth>=992px */
+@media (min-width: 992px){
+    .sel-container{
+        width: 400px;
+        margin-left: 50px;
+    }
+    .stat-container{
+        width: 830px;
+        margin-left: 50px;
+    }
+
+}
+/* WindowWidth>=768px */
+@media (min-width: 768px){
+    .sel-container{
+        width: 400px;
+        margin-left: 50px;
+    }
+    .stat-container{
+        width: 830px;
+        margin-left: 50px;
+    }
+}
+/* WindowWidth>=768px */
+@media (min-width: 400px){
+    .sel-container{
+        width: 400px;
+    }
+}
+
+/* 维度选择器*/
+.sel-container-big{
+    position: relative;
+    width: 100%;
+    height: 52%;
+    background-color: rgba(0,0,0,0.8);
+    -moz-border-radius-topleft: 3px;
+    border-top-left-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    border-top-right-radius: 3px;
+    box-shadow: 5px 5px 70px 1px black; /* 阴影*/
+
+
+}
+/* 维度选择器表格组*/
+.sel-container-big-formgroup{
+    height: 100%;
+    display: inline;
+    margin-left: 15px;
+}
+/* 维度选择器标签*/
+.sel-container-big-span{
+    position: relative;
+    color: white;
+    font-size: 12px;
+    padding-left: 15px;
+    top: 15px;
+}
+/* 维度选择器表格*/
+.sel-container-big-form{
+    position: relative;
+    top: 48%; /* 配合transform居中操作*/
+    transform: translate(0,-50%); /* 居中操作*/
+    width: 75px;
+    height: 24px;
+    display: inline-block;
+    font-size: 10px;
+}
+
+
+/* 细节选择器*/
+.sel-container-detail{
+    position: relative;
+    width: 100%;
+    height: 45%;
+    background-color: rgba(255,255,255,0.8);
+    -moz-border-radius-bottomleft: 2px;
+    border-bottom-left-radius: 2px;
+    -moz-border-radius-bottomright: 2px;
+    border-bottom-right-radius: 2px;
+    box-shadow: 5px 5px 70px 1px black; /* 阴影*/
+}
+.sel-container-detail-location-formgroup{
+    height: 100%;
+    display: inline;
+    margin-left: 15px;
+}
+.sel-container-detail-span{
+    position: relative;
+    color: black;
+    font-size: 12px;
+    padding-left: 15px;
+    top: 12px;
+}
+.sel-container-detail-form{
+    position: relative;
+    top: 48%; /* 配合transform居中操作*/
+    transform: translate(0,-50%); /* 居中操作*/
+    width: 75px;
+    height: 24px;
+    display: inline-block;
+    font-size: 10px;
+    display: none;
+}
+.sel-container-detail-input{
+    position: relative;
+    top: 48%; /* 配合transform居中操作*/
+    transform: translate(0,-50%); /* 居中操作*/
+    width: 150px;
+    height: 24px;
+    display: inline-block;
+    font-size: 10px;
+    display: none;
+}
+.sel-container-detail-submit{
+    position: relative;
+    color: black;
+    font-weight: bolder;
+    background-color: white;
+    border: 1px solid #ccc;
+    font-size: 9px;
+    width: 35px;
+    height: 20px;
+    padding: 0px 0px;
+    top: 43%; /* 配合transform居中操作*/
+    transform: translate(0,-50%); /* 居中操作*/
+    display: none;
+}
+/* 改写btn*/
+/*.btn-default:focus{*/
+    /*color: rgba(0,0,0,0.6);*/
+    /*background-color: white;*/
+    /*border: 1px solid #ccc;*/
+/*}*/
+.btn-default:hover, .btn-default:focus, .btn-default.focus, .btn-default:active, .btn-default.active, .open>.dropdown-toggle.btn-default{
+    color: rgba(0,0,0,0.8);
+    background-color: white;
+    border: 1px solid #aaa;
+}
+
+
+.sel-container-detail-time-formgroup{
+     height: 100%;
+     display: inline;
+     margin-left: 15px;
+     display: none;
+ }
+
+/* 统计表主体*/
+.stat-container{
+    margin-top: 30px; /* 上边距*/
+    display: block;
+}
+/* 表格头部*/
+.stat-container-headTip{
+    position: relative;
+    background-color: rgba(0,0,0,0.8);
+    color:rgba(255,174,0,0.9);
+    width: 100%; /* 此处的高度实际上是js控制的*/
+    height: 50px;
+    -moz-border-radius-topleft: 3px;
+    border-top-left-radius: 3px;
+    -moz-border-radius-topright: 3px;
+    border-top-right-radius: 2px;
+    font-weight: bolder;
+    /*box-shadow: 5px 5px 70px 1px black; /!* 阴影*!/*/
+}
+.stat-container-headTip-span{
+    position: absolute;
+    top: 50%;
+    left: 18px;
+    transform: translate(0,-50%);
+    font-size: 14px;
+
+}
+.stat-container-headTip-span-info{
+    position: absolute;
+    top: 50%;
+    left: 100px;
+    transform: translate(0,-50%);
+    font-size: 13px;
+
+}
+.stat-container-headTip-expectionBtn{
+    position: absolute;
+    color: rgba(255,255,255,0.9);
+    top: 52%;
+    transform: translate(0,-50%);
+    right: 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.9);
+    cursor: pointer;
+}
+#stat-container-headTip-expectionBtn-back{
+    display: none;
+}
+#stat-container-exception{
+    display: none;
+}
+
+
+.stat-container-headTip-span-info span.stat-container-headTip-span-info-spot{
+    text-decoration: underline;
+    cursor: pointer;
+}
+/* 表格主体*/
+.stat-container-tableContainer{
+    color: white;
+    font-size: 14px;
+    width: 100%;
+    /*height: auto; /!* 容器固定高度 = 左右侧table固定高度+margin边距*!/*/
+    height: 163px;
+    background-color: rgba(0,0,0,0.6);
+}
+#stat-container-exception{
+    height: 285px;
+}
+.stat-container-tableContainer-table{
+    border-top-width:0px ;
+    border-left-width:0px ;
+    border-bottom-width:0px ;
+    border-right-width:0px ;
+}
+/* 所有单元格设置下边*/
+.stat-container-tableContainer-table>tbody>tr>td{
+    border-width:0px;
+    border-bottom:1px solid white;
+}
+/* 改写bootstrap.table.td*/
+.table>tbody>tr>td{
+    padding: 15px;
+}
+
+
+
+.stat-container-tableContainer-table td{
+    white-space: nowrap;
+    padding: 14px;
+}
+.stat-container-tableContainer-table-left{
+    font-size: 13px;
+    font-weight: bolder;
+    width: 82px;
+    display:inline-block;
+    margin-bottom: 0px;
+    margin-left: 5px;
+    margin-top: 5px;
+}
+.stat-container-tableContainer-table-left>tbody{
+    border-top: 1px solid white;
+}
+
+.stat-container-tableContainer-table-right{
+    font-size: 13px;
+    width:518px;
+    display:inline-block;
+    overflow-x: scroll;
+    margin-bottom: 0px;
+    border-top: 1px solid white;
+    margin-top: 5px;
+}
+
+/* 设置exceptionTable*/
+.stat-container-tableContainer-table-top,.stat-container-tableContainer-table-bottom{
+    font-size: 13px;
+    display: block;
+    height: auto;
+    width: 100%;
+}
+.stat-container-tableContainer-table-top{
+    border-top: 1px solid white;
+    margin-top: 5px;
+    margin-bottom: 0px;
+    font-weight: bolder;
+}
+
+.stat-container-tableContainer-table-bottom{
+    height: 222px;
+    overflow-y: scroll;
+}
+
+.stat-container-tableContainer-table-bottom-td1{
+    text-align: center;
+    width: 165px;
+}
+.stat-container-tableContainer-table-bottom-td2{
+    text-align: center;
+    width: 80px;
+}
+.stat-container-tableContainer-table-bottom-td3{
+    width: 110px;
+    text-align: center;
+}
+.stat-container-tableContainer-table-bottom-td4{
+    width: 181px;
+    text-align: center;
+}
+.stat-container-tableContainer-table-bottom-td5{
+    width: 70px;
+    text-align: center;
+}
+.stat-container-tableContainer-table-bottom-td6{
+    width: 200px;
+    text-align: center;
+}
+.jumpToMap{
+    color:white;
+}
+.jumpToMap:hover,.jumpToMap:active,.jumpToMap:default,.jumpToMap:visited{
+    color:white;
+
+}
+
+.loading{
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    z-index: 99;
+    top: 30%;
+    display: none;
+}
+.loading span{
+    padding-left: 22px;
+    padding-right: 20px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    width: 50px;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 5px;
+    position: relative;
+    color: rgba(255,255,255,0.8);
+    animation: shining 2s alternate infinite;
+    -webkit-animation: shining 2s alternate infinite;
+    top: 40%;
+    left: 47%;
+    transform: translate(-50%,-50%);
+}
+@keyframes shining {
+    0% {color: rgba(255,255,255,0.8)}
+    10% {color: rgba(255,255,255,0.5)}
+}
+#logo{
+    position: relative;
+    width: 110px;
+    left: 25px;
+    top: -10px;
+}
+
+
+
+
+

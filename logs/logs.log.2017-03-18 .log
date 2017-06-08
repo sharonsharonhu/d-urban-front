@@ -1,0 +1,2 @@
+2017-03-18 01:21:00 [http-nio-8080-exec-7:19950583 ]-[ INFO ] Loading XML bean definitions from class path resource [org/springframework/jdbc/support/sql-error-codes.xml]  
+2017-03-18 01:21:00 [http-nio-8080-exec-7:19950636 ]-[ INFO ] SQLErrorCodes loaded: [DB2, Derby, H2, HSQL, Informix, MS-SQL, MySQL, Oracle, PostgreSQL, Sybase, Hana]  

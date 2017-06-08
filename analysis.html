@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Analysis</title>
+    <!-- bootstrap插件-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/buttons.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <!-- 页面css-->
+    <link rel="stylesheet" href="css/analysis.css">
+    <!-- 导航栏-->
+    <link href="css/jquery-accordion-menu.css" rel="stylesheet" type="text/css">
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css" /><script src="js/modernizr.js"></script> <!-- Modernizr -->
+    <script src="js/jquery-accordion-menu.js" type="text/javascript"></script>
+
+</head>
+<body>
+
+    <!-- 导航条-->
+    <div class="row myNav">
+        <div class="col-md-12 navBar">
+           <h1 style="color: white">NAV</h1>
+        </div>
+    </div>
+    <div id="cd-menu-trigger" style="position:absolute;z-index: 9;top: 149px; right: 30px; height: 40px; width: 180px;border-bottom-left-radius: 4px;border-bottom-right-radius: 4px">
+        <div id="jquery-accordion-menu" class="jquery-accordion-menu red" style="position:absolute;left:0px"  >
+            <ul id="demo-list" style="color:rgba(255,255,255,1);margin-left:0px">
+                <li class="active" style="width:180px">
+                    <a href="#" style="border-top-left-radius: 4px;border-top-right-radius: 4px;">
+                        </i><strong>&nbsp;维度切换</strong>
+                    </a>
+                    <ul class="" style="display: block;">
+                        <li><a href="detect.html" style="background-color: rgba(0,0,0,0.6)"><img src="img/实时监测on.png">&nbsp;实时监测</a></li>
+                        <li><a href="attention.html" style="background-color: rgba(0,0,0,0.6)"><img src="img/预警off.png">&nbsp;预警提示发布</a></li>
+                        <li><a href="analysis.html" style="color:#F90;background-color: rgba(0,0,0,0.6)"><img src="img/统计 on.png">&nbsp;统计分析</a></li>
+                        <li><a href="detect.html" style ="background-color: rgba(0,0,0,0.6)"><img src="img/大型活动off.png">&nbsp;大型活动场所监测</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 主视窗-->
+    <div id="mainview" class="container">
+        <!-- 阴影-->
+        <div class="shadowCover"></div>
+        <!-- 左留空-->
+        <!--<div class="col-md-1"></div>-->
+        <!-- 筛选器容器-->
+        <div class="col-md-5 col-sm-6 sel-container">
+            <!-- 维度选择器-->
+            <div class="sel-container-big">
+                <!-- 第一维度选择器-->
+                <div class="sel-container-big-formgroup">
+                    <span class="sel-container-big-span">选择维度</span>
+                    <select class="form-control sel-container-big-form" id="sel-container-big-select-dimension">
+                        <option>地点维度</option>
+                        <option>时间维度</option>
+                    </select>
+                </div>
+                <!-- 第二维度/维度粒度选择器-->
+                <div class="sel-container-big-formgroup">
+                    <span class="sel-container-big-span">选择粒度</span>
+                    <select class="form-control sel-container-big-form" id="sel-container-big-select-location">
+                        <option>区粒度</option>
+                        <option>点粒度</option>
+                    </select>
+                    <select class="form-control sel-container-big-form" id="sel-container-big-select-time" style="display: none;">
+                        <option>日</option>
+                        <option>周</option>
+                        <option>月份</option>
+                        <option>季度</option>
+                        <option>年份</option>
+                    </select>
+                </div>
+
+            </div>
+            <!-- 细节选择器-->
+            <div class="sel-container-detail">
+
+                <!-- Location-Formgroup-->
+                <div class="sel-container-detail-location-formgroup">
+                    <span class="sel-container-detail-span">可选地点</span>
+                    <!-- 区粒度-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-location-area" style="display: inline-block;">
+                        <option>全&nbsp;&nbsp;局</option>
+                        <option>黄浦区</option>
+                        <option>徐汇区</option>
+                        <option>长宁区</option>
+                        <option>静安区</option>
+                        <option>普陀区</option>
+                        <option>虹口区</option>
+                        <option>杨浦区</option>
+                        <option>闵行区</option>
+                        <option>宝山区</option>
+                        <option>嘉定区</option>
+                        <option>浦东新区</option>
+                        <option>金山区</option>
+                        <option>松江区</option>
+                        <option>青浦区</option>
+                        <option>奉贤区</option>
+                    </select>
+                    <!-- 点粒度-->
+                    <input type="text" maxlength="10" class="form-control sel-container-detail-input" id="sel-container-detail-location-keyword" placeholder="关键词" style="display: none">
+                    <button type="submit" class="btn btn-default sel-container-detail-submit" id='sel-container-detail-submit' style="display: none">查询</button>
+                </div>
+
+                <!-- Time-Formgroup-->
+                <div class="sel-container-detail-time-formgroup">
+                    <span class="sel-container-detail-span">可选时间</span>
+                    <!-- 年份-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-time-year">
+                        <option>2015</option>
+                        <option>2016（当前年份）</option>
+                    </select>
+                    <!-- 季度-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-time-quarter">
+                        <option>第一季度</option>
+                        <option>第二季度</option>
+                        <option>第三季度</option>
+                        <option>第四季度（当前季度）</option>
+                    </select>
+                    <!-- 月份-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-time-month">
+                        <option>今年1月</option>
+                        <option>今年2月</option>
+                        <option>今年3月</option>
+                        <option>今年4月</option>
+                        <option>今年5月</option>
+                        <option>今年6月</option>
+                        <option>今年7月</option>
+                        <option>今年8月</option>
+                        <option>今年9月</option>
+                        <option>今年10月</option>
+                        <option>今年11月（当前月份）</option>
+                        <option disabled>今年12月</option>
+                    </select>
+                    <!-- 周-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-time-week">
+                        <option>本周</option>
+                        <option>当月第一周</option>
+                        <option>当月第二周</option>
+                        <option>当月第三周</option>
+                        <option>当月第四周（本周）</option>
+                        <option>当月第五周</option>
+                        <option disabled>当月第六周</option>
+                    </select>
+                    <!-- 日-->
+                    <select class="form-control sel-container-detail-form" id="sel-container-detail-time-day"  style="display: inline-block;">
+                        <option>今日</option>
+                        <option disabled>自定义日期（未开放）</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <!-- 统计表主体-->
+        <div class="col-md-10 col-sm-10 stat-container">
+            <div class="stat-container-headTip">
+                <span class="stat-container-headTip-span">显示维度</span>
+                <span class="stat-container-headTip-span-info">地点维度-<span class="stat-container-headTip-span-info-locationlevel">区粒度</span>-<span class="stat-container-headTip-span-info-spot">静安区</span>，时间维度-<span class="stat-container-headTip-span-info-timelevel">日</span>-<span class="stat-container-headTip-span-info-timepoint">今日</span></span>
+                <span class="stat-container-headTip-expectionBtn" id="stat-container-headTip-expectionBtn-check">查看异常信息</span>
+                <span class="stat-container-headTip-expectionBtn" id="stat-container-headTip-expectionBtn-back">查看统计信息</span>
+            </div>
+            <!-- analysis table-->
+            <div class="stat-container-tableContainer" id="stat-container-analysis">
+                <div style="display: inline-block;width: 100%;overflow-x: scroll">
+                    <table class="table stat-container-tableContainer-table stat-container-tableContainer-table-left">
+                        <tbody>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-firstCol">时间</td>
+                        </tr>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-firstCol">黑洞数</td>
+                        </tr>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-firstCol">黑洞指数</td>
+                        </tr>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-firstCol">火山数</td>
+                        </tr>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-firstCol">火山指数</td>
+                        </tr>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-firstCol">综合指数</td>
+                        </tr>
+                    </table>
+
+                    <table class="table stat-container-tableContainer-table stat-container-tableContainer-table-right">
+                        <tbody>
+                            <tr>
+                                <td align="middle">2016/10/18</td>
+                                <td align="middle">2016/10/19</td>
+                                <td align="middle">2016/10/20</td>
+                                <td align="middle">2016/10/21</td>
+                                <td align="middle">2016/10/22</td>
+                                <td align="middle">2016/10/23</td>
+                                <td align="middle">2016/10/24</td>
+                                <td align="middle">2016/10/24</td>
+                            </tr>
+                            <tr>
+                                <td align="middle">75</td>
+                                <td align="middle">56</td>
+                                <td align="middle">81</td>
+                                <td align="middle">89</td>
+                                <td align="middle">65</td>
+                                <td align="middle">66</td>
+                                <td align="middle">68</td>
+                                <td align="middle">68</td>
+                            </tr>
+                            <tr>
+                                <td align="middle">23122</td>
+                                <td align="middle">19844</td>
+                                <td align="middle">28123</td>
+                                <td align="middle">29112</td>
+                                <td align="middle">20124</td>
+                                <td align="middle">20021</td>
+                                <td align="middle">21201</td>
+                                <td align="middle">21201</td>
+                            </tr>
+                            <tr>
+                                <td align="middle">68</td>
+                                <td align="middle">64</td>
+                                <td align="middle">79</td>
+                                <td align="middle">82</td>
+                                <td align="middle">70</td>
+                                <td align="middle">68</td>
+                                <td align="middle">66</td>
+                                <td align="middle">66</td>
+                            </tr>
+                            <tr>
+                                <td align="middle">18212</td>
+                                <td align="middle">17238</td>
+                                <td align="middle">21221</td>
+                                <td align="middle">22122</td>
+                                <td align="middle">19221</td>
+                                <td align="middle">18291</td>
+                                <td align="middle">17821</td>
+                                <td align="middle">17821</td>
+                            </tr>
+                            <tr>
+                                <td align="middle" class="stat-container-tableContainer-table-lastRow">？？？？</td>
+                                <td align="middle" class="stat-container-tableContainer-table-lastRow">？？？？</td>
+                                <td align="middle" class="stat-container-tableContainer-table-lastRow">？？？？</td>
+                                <td align="middle" class="stat-container-tableContainer-table-lastRow">？？？？</td>
+                                <td align="middle" class="stat-container-tableContainer-table-lastRow">？？？？</td>
+                                <td align="middle" class="stat-container-tableContainer-table-lastRow">？？？？</td>
+                                <td align="middle" class="stat-container-tableContainer-table-lastRow">？？？？</td>
+                                <td align="middle" class="stat-container-tableContainer-table-lastRow">？？？？</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- exception table-->
+            <div class="stat-container-tableContainer" id="stat-container-exception">
+                <div style="display: block;width: 100%;overflow-y: scroll">
+                    <table class="table stat-container-tableContainer-table stat-container-tableContainer-table-top">
+                        <tbody>
+                        <tr>
+                            <td class="stat-container-tableContainer-table-bottom-td1">时间</td>
+                            <td class="stat-container-tableContainer-table-bottom-td2">类型</td>
+                            <td class="stat-container-tableContainer-table-bottom-td3">具体经纬度</td>
+                            <td class="stat-container-tableContainer-table-bottom-td4">相关地点</td>
+                            <td class="stat-container-tableContainer-table-bottom-td5">查看</td>
+                            <td class="stat-container-tableContainer-table-bottom-td6">异常描述</td>
+                        </tr>
+
+                    </table>
+
+                    <table class="table stat-container-tableContainer-table stat-container-tableContainer-table-bottom">
+                        <tbody>
+                        <tr>
+                            <td align="center" class="stat-container-tableContainer-table-bottom-td1">2016/10/18&nbsp;20:00</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td2">黑洞</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td3">11.111111<br>11.111111</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td4">南京东路<br>哈哈哈大学</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td5"><a href="" class="jumpToMap">点击跳转</a></td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td6">主要来自xxx地点</td>
+                        </tr>
+                        <tr>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td1">2016/10/18&nbsp;20:00</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td2">黑洞</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td3">???,???</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td4">南京东路<br>哈哈哈大学</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td5"><a href="" class="jumpToMap">点击跳转</a></td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td6">主要来自xxx地点</td>
+                        </tr>
+                        <tr>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td1">2016/10/18&nbsp;20:00</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td2">黑洞</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td3">???,???</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td4">南京东路<br>哈哈哈大学</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td5"><a href="" class="jumpToMap">点击跳转</a></td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td6">主要来自xxx地点</td>
+
+                        </tr>
+                        <tr>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td1">2016/10/18&nbsp;20:00</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td2">黑洞</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td3">???,???</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td4">南京东路<br>哈哈哈大学</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td5"><a href="" class="jumpToMap">点击跳转</a></td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td6">主要来自xxx地点</td>
+
+                        </tr>
+                        <tr>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td1">2016/10/18&nbsp;20:00</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td2">黑洞</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td3">???,???</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td4">南京东路<br>哈哈哈大学</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td5"><a href="" class="jumpToMap">点击跳转</a></td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td6">主要来自xxx地点</td>
+
+                        </tr>
+                        <tr>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td1">2016/10/18&nbsp;20:00</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td2">黑洞</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td3">???,???</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td4">南京东路<br>哈哈哈大学</td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td5"><a href="" class="jumpToMap">点击跳转</a></td>
+                            <td align="middle" class="stat-container-tableContainer-table-bottom-td6">主要来自xxx地点</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <script>
+
+        $(document).ready(function()
+                {
+                    // 浏览器窗口高度，宽度
+                    windowHeight = $(window).height();
+                    windowWidth = $(window).width();
+                    $('#mainview').css('height',windowHeight-74+'px')
+                    $('#mainview').css('width',windowWidth+'px')
+                    console.log('windowWidth:'+windowWidth+'px')
+
+                    // 根据表格内容设置表格宽度，单元格最大宽度不超过106px，右侧table最大宽度不超过745px，stat容器不超过830px。
+                    // 暂时取消自适应，设置为696px
+                    $('.stat-container-tableContainer-table-right').css('width','696px')
+                    //table_right_td_width = parseInt($('.stat-container-tableContainer-table-right tbody tr td').css('width').split('px')[0])
+                    //console.log('table_right_td_width',table_right_td_width)
+                    //set_table_right_width = (table_right_td_width+3)*7
+                    //if(windowWidth>=1182){
+                    //    set_table_right_width = (table_right_td_width+3)*7
+                    //}else if(windowWidth<=1182 && windowWidth>=(1182-1*table_right_td_width)){
+                    //    set_table_right_width = (table_right_td_width+3)*6
+                    //}else if(windowWidth<=(1182-1*table_right_td_width) && windowWidth>=(1182-2*table_right_td_width)){
+                    //    set_table_right_width = (table_right_td_width+3)*5
+                    //}else if(windowWidth<=(1182-2*table_right_td_width) && windowWidth>=(1182-3*table_right_td_width)){
+                    //    set_table_right_width = (table_right_td_width+3)*4
+                    //}else if(windowWidth<=(1182-3*table_right_td_width) && windowWidth>=(1182-4*table_right_td_width)){
+                    //    set_table_right_width = (table_right_td_width+3)*3
+                    //}else{
+                    //    set_table_right_width = (table_right_td_width+3)*2
+                    //}
+                    //if(set_table_right_width<=370){
+                    //    // 370-15-82 = 273
+                    //    set_table_right_width = 273
+                    //}else{}
+                    //$('.stat-container-tableContainer-table-right').css('width',set_table_right_width+'px')
+                    //$('.stat-container-tableContainer').css('width',set_table_right_width+82+15+'px') // 82为.stat-container-tableContainer-table-left宽度，15为padding
+                    //$('.stat-container-headTip').css('width',set_table_right_width+82+15+'px') // 82为.stat-container-tableContainer-table-left宽度，15为padding
+
+                }
+        )
+        // 监听维度选择器
+        $("#sel-container-big-select-dimension").change(function(){
+            selVal = $("#sel-container-big-select-dimension").val()
+            if(selVal=='时间维度'){
+                $('#sel-container-big-select-time').css('display','inline-block') //粒度维度选择器
+                $('.sel-container-detail-time-formgroup').css('display','inline-block') //detail维度选择器
+                $('#sel-container-big-select-location').css('display','none')
+                $('.sel-container-detail-location-formgroup').css('display','none') //detail维度选择器
+                
+            }else{
+                $('#sel-container-big-select-location').css('display','inline-block')
+                $('.sel-container-detail-location-formgroup').css('display','inline-block') //detail维度选择器
+                $('#sel-container-big-select-time').css('display','none')
+                $('.sel-container-detail-time-formgroup').css('display','none') //detail维度选择器
+
+            }
+        })
+        // 监听地点粒度
+        $("#sel-container-big-select-location").change(function(){
+            selVal = $("#sel-container-big-select-location").val()
+            if(selVal=='区粒度'){
+                $('#sel-container-detail-location-keyword').css('display','none')
+                $('.sel-container-detail-submit').css('display','none')
+                $('#sel-container-detail-location-area').css('display','inline-block')
+            }else if(selVal=='点粒度'){
+                $('#sel-container-detail-location-area').css('display','none')
+                $('#sel-container-detail-location-keyword').css('display','inline-block')
+                $('.sel-container-detail-submit').css('display','inline-block')
+            }else{}
+        })
+        // 监听时间粒度
+        $("#sel-container-big-select-time").change(function(){
+            selVal = $("#sel-container-big-select-time").val()
+            if(selVal=='年份'){
+                this_val = $('#sel-container-detail-time-year').val()
+                $('.sel-container-detail-time-formgroup .sel-container-detail-form').css('display','none')
+                $('#sel-container-detail-time-year').css('display','inline-block')
+                $('.stat-container-headTip-span-info-timelevel').text(selVal) //设置时间粒度
+                $('.stat-container-headTip-span-info-timepoint').text(this_val) //设置选中的时间粒度detail
+            }else if(selVal=='季度'){
+                this_val = $('#sel-container-detail-time-quarter').val()
+                $('.sel-container-detail-time-formgroup .sel-container-detail-form').css('display','none')
+                $('#sel-container-detail-time-quarter').css('display','inline-block')
+                $('.stat-container-headTip-span-info-timelevel').text(selVal) //设置时间粒度
+                $('.stat-container-headTip-span-info-timepoint').text(this_val) //设置选中的时间粒度detail
+            }else if(selVal=='月份'){
+                this_val = $('#sel-container-detail-time-month').val()
+                $('.sel-container-detail-time-formgroup .sel-container-detail-form').css('display','none')
+                $('#sel-container-detail-time-month').css('display','inline-block')
+                $('.stat-container-headTip-span-info-timelevel').text(selVal) //设置时间粒度
+                $('.stat-container-headTip-span-info-timepoint').text(this_val) //设置选中的时间粒度detail
+            }else if(selVal=='周'){
+                this_val = $('#sel-container-detail-time-week').val()
+                $('.sel-container-detail-time-formgroup .sel-container-detail-form').css('display','none')
+                $('#sel-container-detail-time-week').css('display','inline-block')
+                $('.stat-container-headTip-span-info-timelevel').text(selVal) //设置时间粒度
+                $('.stat-container-headTip-span-info-timepoint').text(this_val) //设置选中的时间粒度detail
+            }else if(selVal=='日'){
+                this_val = $('#sel-container-detail-time-day').val()
+                $('.sel-container-detail-time-formgroup .sel-container-detail-form').css('display','none')
+                $('#sel-container-detail-time-day').css('display','inline-block')
+                $('.stat-container-headTip-span-info-timelevel').text(selVal) //设置时间粒度
+                $('.stat-container-headTip-span-info-timepoint').text(this_val) //设置选中的时间粒度detail
+            }
+        })
+        //监听区粒度sel
+        $('#sel-container-detail-location-area').change(function(){
+            levelSelVal = $("#sel-container-big-select-location").val() //粒度选择器Val
+            selVal = $("#sel-container-detail-location-area").val() //area细节选择器Val
+            $('.stat-container-headTip-span-info-locationlevel').text(levelSelVal)
+            $('.stat-container-headTip-span-info-spot').text(selVal)
+        })
+        //监听点粒度关键词
+        $('#sel-container-detail-submit').click(function(){
+            // 关键词
+            selVal = $('#sel-container-detail-location-keyword').val()
+            $('.stat-container-headTip-span-info-locationlevel').text('点粒度')
+            $('.stat-container-headTip-span-info-spot').text(selVal)
+        })
+        //监听时间detail
+        $('#sel-container-detail-time-week,#sel-container-detail-time-day,#sel-container-detail-time-month,#sel-container-detail-time-quarter,#sel-container-detail-time-year').change(function(){
+            selVal = $(this).val()
+            $('.stat-container-headTip-span-info-timepoint').text(selVal) //设置选中的时间粒度detail
+        })
+        //点击“查看异常信息”按钮
+        $('#stat-container-headTip-expectionBtn-check').click(function(){
+            // fadein作为fadeout的回调
+            $('#stat-container-headTip-expectionBtn-back').fadeOut(function(){
+                $('#stat-container-headTip-expectionBtn-check').fadeIn()
+            })
+            $('#stat-container-analysis').slideUp(500,function(){
+                $('#stat-container-exception').slideDown(500)
+            })
+
+        })
+        // 右侧导航栏初始化
+        $("#jquery-accordion-menu").jqueryAccordionMenu();
+    </script>
+</body>
+</html>

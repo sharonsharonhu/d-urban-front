@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.universe.soda.re15.dao.Re15Dao">
+<!--  	<resultMap id="BaseResultMap" type="com.universe.soda.re15.entity.Re15Data">
+			<id column="comment" property="comment" jdbcType="VARCHAR" />
+	</resultMap>  -->
+	
+	<select id="selectBug" resultType="String">
+		<!--select comment/stopwords_removal_lemmatization from bug_report_data;-->
+		select lemmatized_comment from bug_report_data;
+	</select>
+	
+	<select id="selectFeature" resultType="String">
+		<!--select comment from feature_or_improvment_request_data;-->
+		select lemmatized_comment from feature_or_improvment_request_data
+	</select>
+	
+	<select id="selectRating" resultType="String">
+		<!--select comment from rating_data;-->
+		select lemmatized_comment from rating_data
+	</select>
+	
+	<select id="selectExperience" resultType="String">
+		<!--select comment from userexperience_data;-->
+		select lemmatized_comment from userexperience_data
+	</select>
+	
+
+
+</mapper>

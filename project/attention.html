@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Attention</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css">
+    <!-- 页面css-->
+    <link rel="stylesheet" href="css/attention.css">
+    <!-- 导航栏-->
+    <link href="css/jquery-accordion-menu.css" rel="stylesheet" type="text/css">
+    <script src="js/jquery-accordion-menu.js" type="text/javascript"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=07Kq0TYSjz3espDmG7TRMyUtz5ElcNlA"></script>
+
+</head>
+<body>
+    <!-- 导航条-->
+    <div class="row myNav">
+        <div class="col-md-12 col-sm-12 col-xs-12 navBar">
+            <img src="img/logo.png" id="logo">
+            <!--<h1 style="color: white">NAV</h1>-->
+        </div>
+    </div>
+    <div id="cd-menu-trigger" style="position:absolute;z-index: 9;top: 149px; right: 30px; height: 40px; width: 180px;border-bottom-left-radius: 4px;border-bottom-right-radius: 4px">
+        <div id="jquery-accordion-menu" class="jquery-accordion-menu red" style="position:absolute;left:0px"  >
+            <ul id="demo-list" style="color:rgba(255,255,255,1);margin-left:0px">
+                <li class="active" style="width:180px">
+                    <a href="#" style="border-top-left-radius: 4px;border-top-right-radius: 4px;">
+                        </i><strong>&nbsp;维度切换</strong>
+                    </a>
+                    <ul class="submenu" style="display: block;">
+                        <li><a href="http://182.254.148.45:8080/soda/#" style="background-color: rgba(0,0,0,0.6)"><img src="img/jianceon.png">&nbsp;实时监测</a></li>
+                        <li><a href="attention.html" style="color:#F90;background-color: rgba(0,0,0,0.6)"><img src="img/yujingon.png">&nbsp;预警提示发布</a></li>
+                        <li><a href="analysis.html" style="background-color: rgba(0,0,0,0.6)"><img src="img/tongjioff.png">&nbsp;统计分析</a></li>
+                        <li><a href="activity.html" style ="background-color: rgba(0,0,0,0.6)"><img src="img/huodongoff.png">&nbsp;大型活动场所监测</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- 主视窗-->
+    <div id="mainview" class="container">
+        <!-- 阴影-->
+        <div class="shadowCover"></div>
+        <!-- table-->
+        <div class="table-container">
+            <div class="table-container-btngroup">
+                <div class="table-container-btngroup-btn" id="table-container-btngroup-btn-wechat" style="pointer:cursor;"><span>发送微信</span></div>
+                <div class="table-container-btngroup-btn" id="table-container-btngroup-btn-policeman" style="pointer:cursor;"><span>发送执勤警员</span></div>
+            </div>
+            <!-- head-->
+            <div>
+                <h1>聚扩情况预警</h1>
+            </div>
+
+            <div>
+                <table class="table table-bordered table-hover table-container-main">
+                    <thead>
+                        <tr>
+                            <td align="center" class="table-container-main-1">选择<br><span style="font-size: 12px;font-weight: bolder">（多选）</span></td>
+                            <td align="center" class="table-container-main-2">时间<br><span style="font-size: 12px">（yyyy/mm/dd hh:mm）</span></td>
+                            <td align="center" class="table-container-main-3">区域<br><span style="font-size: 12px">（市辖区）</span></td>
+                            <td align="center" class="table-container-main-4">相关道路<br><span style="font-size: 12px">（百度地图街道信息）</span></td>
+                            <td align="center" class="table-container-main-5">相关地点<br><span style="font-size: 12px">（商圈，景点等）</span></td>
+                            <td align="center" class="table-container-main-6">聚集情况<br><span style="font-size: 12px">（点击查看<span style="color:red;text-decoration: underline">[未开放]</span>）</span></td>
+                        </tr>
+                    </thead>
+                    <!--<tr>-->
+                        <!--<td align="center"><input type="checkbox" value="6"></td>-->
+                        <!--<td align="center">2016/09/28&nbsp;&nbsp;20:00</td>-->
+                        <!--<td align="center">静安区</td>-->
+                        <!--<td align="center">某某路</td>-->
+                        <!--<td align="center">某某商圈</td>-->
+                        <!--<td align="center"><a href="http://115.159.217.159:8080/soda/#" class="aggregation">重度黑洞</a></td>-->
+                    <!--</tr>-->
+
+                </table>
+            </div>
+            <h6 style="font-weight: bolder;margin-top: -15px">注：显示最近一小时聚扩情况</h6>
+
+        </div>
+    </div>
+
+
+    <script>
+        dates =['2016-03-01',
+             '2016-03-02',
+             '2016-03-03',
+             '2016-03-04',
+             '2016-03-05',
+             '2016-03-06',
+             '2016-03-07',
+             '2016-03-08',
+             '2016-03-09',
+             '2016-03-10',
+             '2016-03-11',
+             '2016-03-12',
+             '2016-03-13',
+             '2016-03-14',
+             '2016-03-15',
+             '2016-03-16',
+             '2016-03-17',
+             '2016-03-18',
+             '2016-03-19',
+             '2016-03-20',
+             '2016-03-21',
+             '2016-03-22',
+             '2016-03-23',
+             '2016-03-24',
+             '2016-03-25',
+             '2016-03-26',
+             '2016-03-27',
+             '2016-03-28',
+             '2016-03-29',
+             '2016-03-30',
+             '2016-03-31'];
+        hours = ['0','1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17',
+            '18','19','20','21','22','23'];
+        randomDay = dates[parseInt(Math.random()*31)+1];
+        randomHour = hours[parseInt(Math.random()*24)];
+
+
+        // 根据经纬度查询地点
+//        function checkPlace(lat,lon){
+//            // 搞不定
+//            str = []
+//            $.ajax({
+//                type:'GET',
+//                url : 'http://api.map.baidu.com/geocoder/v2/?ak=6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM&callback=showLocation&location='+lat+','+lon+'&output=json',
+//                // 必须要用jsonp
+//                dataType : "jsonp",
+//                error:function(XMLHttpRequests, textStatus){
+//                    console.log(XMLHttpRequests)
+//                    console.log(textStatus)
+//                    alert('数据加载失败! '+textStatus+','+XMLHttpRequests.status)
+//                },
+//                beforeSend: function(request) {
+//                    request.setRequestHeader("Test", "Chenxizhang");
+//                },
+//                success:function(data){
+//                    str.push(data.result.addressComponent.district.toString())
+//                    str.push(data.result.addressComponent.street.toString() +data.result.addressComponent.street_number.toString())
+//                    str.push(data.result.business.toString())
+////                    str = data.result.addressComponent.district.toString()+','+data.result.addressComponent.street.toString()
+////                        +data.result.addressComponent.street_number.toString()+','+data.result.business.toString()
+//                }
+//            })
+//            console.log(str)
+//            return str
+//
+//        }
+
+        $(document).ready(function()
+                {
+                    // 浏览器窗口高度，宽度
+                    windowHeight = $(window).height();
+                    windowWidth = $(window).width();
+                    if(windowWidth<900){
+                        $('#mainview').css('width',900+'px')
+                        $('.shadowCover').css('width',900+'px')
+
+                    }else{
+                        $('#mainview').css('width',windowWidth+'px')
+                    }
+                    $('#mainview').css('height',windowHeight-74+'px')
+                    console.log('windowWidth:'+windowWidth+'px')
+
+
+                    // 暂时
+                    randomDay = '2016-03-01'
+                    host = 'http://182.254.148.45:8080/soda'
+                    // 查询最近一个小时聚扩情况，黑洞，group=2
+                    $.ajax({
+                        type:'GET',
+                        ///2016-03-01&hour=0&group=1
+//                        url : host+'/system/blackhole?date=' + randomDay + '&hour=' + randomHour +'&group=2',
+                        url : host+'/alarm/day?date=2016-03-01',
+                        async:false,
+                        dataType : "json",
+                        beforeSend:function(){},
+                        error:function(XMLHttpRequests, textStatus){
+                            console.log(XMLHttpRequests)
+                            console.log(textStatus)
+                            alert('数据加载失败! '+textStatus+','+XMLHttpRequests.status)
+                        },
+                        success : function(data) {
+                            console.log('SUCCESS!')
+                            console.log(data)
+                            datas = data.data
+                            datas1 = datas.reverse()
+                            datas = datas1
+                            // 倒排
+                            for(i=0;i<datas.length;i++){
+                                this_time = datas[i].date.substring(0,datas[i].date.length-3)
+                                this_lat = datas[i].latitude
+                                this_lon = datas[i].longitude
+                                this_itemnum = datas[i].itemNum
+                                this_area = datas[i].locationName
+                                this_type = datas[i].type
+                                this_level = ''
+                                if(this_itemnum<=500){
+                                    if(this_type=='blackhole'){
+                                        this_level = '轻度黑洞'
+                                    }else if(this_type=='volcano'){
+                                        this_level = '轻度火山'
+                                    }else{}
+
+                                }else if(this_itemnum>500 & this_itemnum<=1000){
+                                    if(this_type=='blackhole'){
+                                        this_level = '中度黑洞'
+                                    }else if(this_type=='volcano'){
+                                        this_level = '中度火山'
+                                    }else{}
+                                }else if(this_itemnum>1000){
+                                    if(this_type=='blackhole'){
+                                        this_level = '重度黑洞'
+                                    }else if(this_type=='volcano'){
+                                        this_level = '重度火山'
+                                    }else{}
+                                }else{}
+//                                this_district = checkPlace(this_lat,this_lon)
+//                                console.log(this_district)
+
+//                                <tr>
+//                                    <!-- check可以加一个id，该id是根据后台的数据记录而唯一确定的，发送的时候就很好发送。-->
+//                                <td align="center"><input type="checkbox" id="201609282000112121" value="1"></td>
+//                                        <td align="center">2016/09/28&nbsp;&nbsp;20:00</td>
+//                                <td align="center">静安区</td>
+//                                        <td align="center">某某路</td>
+//                                        <td align="center">某某商圈</td>
+//                                        <td align="center"><a href="http://115.159.217.159:8080/soda/#" class="aggregation">轻度火山</a></td>
+//                                </tr>
+
+                                $('.table-container-main').append(
+                                        '<tr>' +
+                                        '<td align="center"><input type="checkbox" value="1"></td>' +
+                                        '<td align="center">'+this_time+'</td>' +
+                                        '<td align="center">'+this_area+'</td>' +
+                                        '<td align="center">某某路</td>' +
+                                        '<td align="center">某某商圈</td>' +
+                                        '<td align="center"><a href="http://182.254.148.45:8080/soda/#" class="aggregation">'+this_level+'</a></td>' +
+                                        '</tr>'
+                                )
+
+
+
+
+
+                            }
+                            setTimeout(function(){
+                                console.log($(document).height())
+                                $('#mainview').css('height',$(document).height())
+                                $('.shadowCover').css('height',$(document).height())
+                            },1000)
+                        }
+                    })
+
+
+                    $('a.aggregation').css('color',function(){
+                        txt = $(this).context.innerText
+                        if(txt=='轻度火山'||txt=='轻度黑洞' ){
+                            return '#a5c22a'
+                        }else if(txt=='中度火山'||txt=='中度黑洞'){
+                            return '#e7bea2'
+
+                        }else if(txt=='重度火山'||txt=='重度黑洞'){
+                            return '#f59785'
+                        }else{}
+                    })
+
+                    $('a.aggregation').css('border-bottom-color',function(){
+                        txt = $(this).context.innerText
+                        if(txt=='轻度火山'||txt=='轻度黑洞' ){
+                            return '#a5c22a'
+                        }else if(txt=='中度火山'||txt=='中度黑洞'){
+                            return '#e7bea2'
+
+                        }else if(txt=='重度火山'||txt=='重度黑洞'){
+                            return '#f59785'
+                        }else{}
+                    })
+
+                    // 右侧导航栏初始化
+                    $("#jquery-accordion-menu").jqueryAccordionMenu();
+
+
+
+
+//                    // 根据经纬度查询地点
+                    function checkPlace(lat,lon){
+                        // 百度地图API功能
+                        var map = new BMap.Map("allmap");
+                        // long,lati
+                        //        var point = new BMap.Point(longitude,latitude);
+                        var point = new BMap.Point(121.56097412109375,31.208038330078125);
+                        map.centerAndZoom(point,12);
+                        var gc = new BMap.Geocoder();
+                        place = ''
+                        gc.getLocation(point, function(rs){
+                            var addComp = rs.addressComponents;
+                            alert(addComp.district + ", " + addComp.street + ", " + addComp.streetNumber)
+                        });
+                    }
+                    checkPlace(121.56097412109375,31.208038330078125)
+
+                }
+
+
+        )
+        // 点击“发送执勤警员”时调用
+        $('#table-container-btngroup-btn-wechat').click(function(){
+            checkboxes = $("input[type='checkbox']")
+            choices = []
+            for(c=0;c<checkboxes.length;c++){
+                if(checkboxes[c].checked==true){
+                    // 如果是id，直接改为id
+//                    choices.push(checkboxes[c].id)
+                    choices.push(checkboxes[c].value)
+                }else{}
+            }
+            console.log(choices)
+            //／ 发送方法体 ///
+            alert('未开放，敬请期待')
+
+        })
+        // 点击“发送至微信公众号”时调用
+        $('#table-container-btngroup-btn-policeman').click(function(){
+            checkboxes = $("input[type='checkbox']")
+            choices = []
+            for(c=0;c<checkboxes.length;c++){
+                if(checkboxes[c].checked==true){
+                    // 如果是id，直接改为id
+//                    choices.push(checkboxes[c].id)
+                    choices.push(checkboxes[c].value)
+                }else{}
+            }
+            console.log(choices)
+            //／ 发送方法体 ///
+            alert('未开放，敬请期待')
+
+        })
+
+
+
+
+
+    </script>
+</body>
+</html>

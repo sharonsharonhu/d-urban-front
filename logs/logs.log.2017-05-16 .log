@@ -1,0 +1,51 @@
+2017-05-16 15:26:33 [localhost-startStop-1:1386 ]-[ INFO ] FrameworkServlet 'soda': initialization started  
+2017-05-16 15:26:33 [localhost-startStop-1:1407 ]-[ INFO ] Refreshing WebApplicationContext for namespace 'soda-servlet': startup date [Tue May 16 15:26:33 CST 2017]; parent: Root WebApplicationContext  
+2017-05-16 15:26:33 [localhost-startStop-1:1408 ]-[ INFO ] Loading XML bean definitions from class path resource [spring-mvc.xml]  
+2017-05-16 15:26:33 [localhost-startStop-1:1807 ]-[ INFO ] Mapped "{[/alarm/day]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.AlarmController.dayAlarm(java.lang.String)  
+2017-05-16 15:26:33 [localhost-startStop-1:1808 ]-[ INFO ] Mapped "{[/alarm/peroid]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.AlarmController.peroidAlarm(java.lang.String,java.lang.String)  
+2017-05-16 15:26:33 [localhost-startStop-1:1810 ]-[ INFO ] Mapped "{[/system/volcano],methods=[GET]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SystemController.volcano(java.lang.String,int,int)  
+2017-05-16 15:26:33 [localhost-startStop-1:1810 ]-[ INFO ] Mapped "{[/system/blackhole],methods=[GET]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SystemController.blackhole(java.lang.String,int,int)  
+2017-05-16 15:26:33 [localhost-startStop-1:1811 ]-[ INFO ] Mapped "{[/system/dayCurve],methods=[GET]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SystemController.dayState(double,double,int,java.lang.String)  
+2017-05-16 15:26:33 [localhost-startStop-1:1811 ]-[ INFO ] Mapped "{[/system/periodCurve],methods=[GET]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SystemController.weekState(double,double,int,java.lang.String,java.lang.String)  
+2017-05-16 15:26:33 [localhost-startStop-1:1815 ]-[ INFO ] Mapped "{[/summary/area/day]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SummaryController.dayArea(java.lang.String,java.lang.String)  
+2017-05-16 15:26:33 [localhost-startStop-1:1816 ]-[ INFO ] Mapped "{[/summary/point/day]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SummaryController.dayPoint(java.lang.String,java.lang.String,java.lang.String)  
+2017-05-16 15:26:33 [localhost-startStop-1:1816 ]-[ INFO ] Mapped "{[/summary/area/period]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SummaryController.periodArea(java.lang.String,java.lang.String,java.lang.String)  
+2017-05-16 15:26:33 [localhost-startStop-1:1816 ]-[ INFO ] Mapped "{[/summary/point/period]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SummaryController.periodPoint(java.lang.String,java.lang.String,java.lang.String,java.lang.String)  
+2017-05-16 15:26:33 [localhost-startStop-1:1817 ]-[ INFO ] Mapped "{[/exception/day]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.ExceptionController.dayException(java.lang.String)  
+2017-05-16 15:26:33 [localhost-startStop-1:1817 ]-[ INFO ] Mapped "{[/exception/period]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.ExceptionController.dayException(java.lang.String,java.lang.String)  
+2017-05-16 15:26:33 [localhost-startStop-1:1820 ]-[ INFO ] Mapped "{[/data/runDataFromDate]}" onto public com.universe.soda.utils.Status com.universe.soda.data.controller.SysDataController.runDataFromDate(java.lang.String) throws java.lang.Exception  
+2017-05-16 15:26:33 [localhost-startStop-1:1820 ]-[ INFO ] Mapped "{[/data/runData]}" onto public com.universe.soda.utils.Status com.universe.soda.data.controller.SysDataController.runData() throws java.lang.Exception  
+2017-05-16 15:26:33 [localhost-startStop-1:1821 ]-[ INFO ] Mapped "{[/re15/run]}" onto public com.universe.soda.utils.Status com.universe.soda.re15.common.Re15Controller.test() throws java.lang.Exception  
+2017-05-16 15:26:34 [localhost-startStop-1:2230 ]-[ INFO ] Looking for @ControllerAdvice: WebApplicationContext for namespace 'soda-servlet': startup date [Tue May 16 15:26:33 CST 2017]; parent: Root WebApplicationContext  
+2017-05-16 15:26:34 [localhost-startStop-1:2293 ]-[ INFO ] Looking for @ControllerAdvice: WebApplicationContext for namespace 'soda-servlet': startup date [Tue May 16 15:26:33 CST 2017]; parent: Root WebApplicationContext  
+2017-05-16 15:26:34 [localhost-startStop-1:2369 ]-[ INFO ] Mapped URL path [/**] onto handler 'org.springframework.web.servlet.resource.ResourceHttpRequestHandler#0'  
+2017-05-16 15:26:34 [localhost-startStop-1:2389 ]-[ INFO ] Mapped "{[/alarm/day]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.AlarmController.dayAlarm(java.lang.String)  
+2017-05-16 15:26:34 [localhost-startStop-1:2390 ]-[ INFO ] Mapped "{[/alarm/peroid]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.AlarmController.peroidAlarm(java.lang.String,java.lang.String)  
+2017-05-16 15:26:34 [localhost-startStop-1:2394 ]-[ INFO ] Mapped "{[/system/volcano],methods=[GET]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SystemController.volcano(java.lang.String,int,int)  
+2017-05-16 15:26:34 [localhost-startStop-1:2400 ]-[ INFO ] Mapped "{[/system/blackhole],methods=[GET]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SystemController.blackhole(java.lang.String,int,int)  
+2017-05-16 15:26:34 [localhost-startStop-1:2401 ]-[ INFO ] Mapped "{[/system/dayCurve],methods=[GET]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SystemController.dayState(double,double,int,java.lang.String)  
+2017-05-16 15:26:34 [localhost-startStop-1:2401 ]-[ INFO ] Mapped "{[/system/periodCurve],methods=[GET]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SystemController.weekState(double,double,int,java.lang.String,java.lang.String)  
+2017-05-16 15:26:34 [localhost-startStop-1:2402 ]-[ INFO ] Mapped "{[/summary/area/day]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SummaryController.dayArea(java.lang.String,java.lang.String)  
+2017-05-16 15:26:34 [localhost-startStop-1:2403 ]-[ INFO ] Mapped "{[/summary/point/day]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SummaryController.dayPoint(java.lang.String,java.lang.String,java.lang.String)  
+2017-05-16 15:26:34 [localhost-startStop-1:2403 ]-[ INFO ] Mapped "{[/summary/area/period]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SummaryController.periodArea(java.lang.String,java.lang.String,java.lang.String)  
+2017-05-16 15:26:34 [localhost-startStop-1:2403 ]-[ INFO ] Mapped "{[/summary/point/period]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.SummaryController.periodPoint(java.lang.String,java.lang.String,java.lang.String,java.lang.String)  
+2017-05-16 15:26:34 [localhost-startStop-1:2404 ]-[ INFO ] Mapped "{[/exception/day]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.ExceptionController.dayException(java.lang.String)  
+2017-05-16 15:26:34 [localhost-startStop-1:2409 ]-[ INFO ] Mapped "{[/exception/period]}" onto public com.universe.soda.utils.Status com.universe.soda.system.controller.ExceptionController.dayException(java.lang.String,java.lang.String)  
+2017-05-16 15:26:34 [localhost-startStop-1:2411 ]-[ INFO ] Mapped "{[/data/runDataFromDate]}" onto public com.universe.soda.utils.Status com.universe.soda.data.controller.SysDataController.runDataFromDate(java.lang.String) throws java.lang.Exception  
+2017-05-16 15:26:34 [localhost-startStop-1:2411 ]-[ INFO ] Mapped "{[/data/runData]}" onto public com.universe.soda.utils.Status com.universe.soda.data.controller.SysDataController.runData() throws java.lang.Exception  
+2017-05-16 15:26:34 [localhost-startStop-1:2411 ]-[ INFO ] Mapped "{[/re15/run]}" onto public com.universe.soda.utils.Status com.universe.soda.re15.common.Re15Controller.test() throws java.lang.Exception  
+2017-05-16 15:26:34 [localhost-startStop-1:2415 ]-[ INFO ] Looking for @ControllerAdvice: WebApplicationContext for namespace 'soda-servlet': startup date [Tue May 16 15:26:33 CST 2017]; parent: Root WebApplicationContext  
+2017-05-16 15:26:34 [localhost-startStop-1:2475 ]-[ INFO ] FrameworkServlet 'soda': initialization completed in 1071 ms  
+2017-05-16 15:26:36 [localhost-startStop-1:0 ]-[ INFO ] Root WebApplicationContext: initialization started  
+2017-05-16 15:26:36 [localhost-startStop-1:68 ]-[ INFO ] Refreshing Root WebApplicationContext: startup date [Tue May 16 15:26:36 CST 2017]; root of context hierarchy  
+2017-05-16 15:26:36 [localhost-startStop-1:106 ]-[ INFO ] Loading XML bean definitions from class path resource [spring-config.xml]  
+2017-05-16 15:26:36 [localhost-startStop-1:406 ]-[ INFO ] Loading properties file from class path resource [jdbc.properties]  
+2017-05-16 15:26:36 [localhost-startStop-1:735 ]-[ INFO ] {dataSource-1} inited  
+2017-05-16 15:26:37 [localhost-startStop-1:890 ]-[ INFO ] Initializing EhCache CacheManager  
+2017-05-16 15:26:37 [localhost-startStop-1:979 ]-[ WARN ] diskStorePath '/srv/tomcat8/temp' is already used by an existing CacheManager either in the same VM or in a different process.
+The diskStore path for this CacheManager will be set to /srv/tomcat8/temp/ehcache_auto_created5311668659620940799diskstore.
+To avoid this warning consider using the CacheManager factory methods to create a singleton CacheManager or specifying a separate ehcache configuration (ehcache.xml) for each CacheManager instance.  
+2017-05-16 15:26:37 [localhost-startStop-1:1002 ]-[ WARN ] Data in persistent disk stores is ignored for stores from automatically created directories.
+Remove diskPersistent or resolve the conflicting disk paths in cache configuration.
+Deleting data file /srv/tomcat8/temp/ehcache_auto_created5311668659620940799diskstore/soda.data  
+2017-05-16 15:26:37 [localhost-startStop-1:1189 ]-[ INFO ] Root WebApplicationContext: initialization completed in 1189 ms  

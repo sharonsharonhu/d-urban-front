@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>activity</title>
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/buttons.css">
+        <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+        <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+        <link href="css/jquery-accordion-menu.css" rel="stylesheet" type="text/css" /><link href="css/font-awesome.css" rel="stylesheet" type="text/css" /><script src="js/modernizr.js"></script> <!-- Modernizr -->
+        <script src="js/jquery-1.11.1.min.js"></script>
+        <script src="js/main.js"></script> <!-- Resource jQuery -->
+        <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="js/jquery-1.11.2.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/Chart.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
+        <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript" src="js/buttons.js"></script>
+        <script src="js/jquery-1.11.2.min.js" type="text/javascript"></script>
+        <script src="js/jquery-accordion-menu.js" type="text/javascript"></script>
+        <script src="js/detectcircle.js" type="text/javascript"></script>
+        <script src="js/time.js" type="text/javascript"></script>
+        <script src="js/drawchart.js" type="text/javascript"></script>
+        <style type="text/css">
+            *{
+                margin: 0;
+                padding-bottom: 0;
+                padding-left: 0px;
+                padding-right: 0px;
+                padding-top: 0px;
+            }
+            .navigation{background:rgba(0,0,0,0.95);height:45px;}
+            #container{width:100%;height:595px;margin-top:0px;}
+            .wraper{background:rgba(0,0,0,0.75);width:100%;height:130px;position:fixed;bottom:0px;}
+            #demo-list a{
+                overflow:hidden;
+                /*text-overflow:ellipsis;*/
+                -o-text-overflow:ellipsis;
+                white-space:nowrap;
+                width:100%;
+            }
+            *{padding: 0; margin: 0}
+            .box,.mbox{
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0);
+                display: none;
+            }
+            .box1{
+                width:330px;
+                height: 280px;
+                position: fixed;left: 50%; top: 15%;
+                margin-left: -250px;
+                border: 0px ;
+            }
+            .box2{
+                color:rgba(255,255,255,1);
+                width:15px;
+                height: 20px;
+                position: fixed;left: 88%; top: 25%;
+                margin-left: -250px;
+                border: 1px ;
+                backgroud-color:rgba(0,0,0,0.75);
+            }
+input[type="text"], input[type="password"], textarea, select{outline: none;}
+#msgform{width: 330px;background:#CCC;border: 8px solid rgba(0,0,0,0.5);-moz-border-radius: 6px;-webkit-border-radius: 6px;border-radius: 6px;padding: 4px 14px;top:0px;z-index: 9;}
+.mainCompose{display: inline;}
+.msgInput{border: 1px solid #d8d5bb;border-top-color: #b1ae99;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;width: 290px;font-size: 15px;color: #727167;padding: 4px 7px;font-family: Arial, Tahoma, sans-serif;}
+.msgField{border: 1px solid #d8d5bb;border-top-color: #b1ae99;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;width: 290px;color: #a4a39c;color: #727167;font-size: 15px;padding: 5px 9px;font-family: Arial, Tahoma, sans-serif;height: 140px;margin-bottom: 20px;}
+#composebtn img{cursor: pointer;}
+#tofield{margin-bottom: 1px;}
+.containmsg{margin-left: 50px;display: block;float: right;position: relative;}
+.containmsg .mainCompose{position: absolute;left: -33px;top: 20px;}
+.recipient{display: block;padding: 3px 7px;text-decoration: none;font-family: Arial, Helvetica, sans-serif;font-size: 11px;font-weight: bold;background: #eae7d1;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;color: #949286;}
+.recipient: hover{color: #75746a;margin-top:20px}
+.userslist{display: inline;list-style: none;padding: 0;margin-bottom: 5px;position: relative;top: 10px;margin-left: 2px;}
+.userslist li{float: left;}
+#tofield: focus, #mymsg: focus{box-shadow: 0px 0px 7px #007eff;}
+#msgform label{display: inline;color: #827f6a;font-size: 14px;font-weight: bold;font-family: "Trebuchet MS", Arial, sans-serif;margin-bottom: 4px;}
+
+p#errortxt{margin-top: -15px;font-size: 0.7em;font-style: italic;color: #555;margin-bottom: 10px;}
+.sendbtn{display: inline-block;outline: none;margin-bottom: 12px;cursor: pointer;font-family: Arial, Helvetica, sans-serif;font-weight: bold;font-size: 12px;color: #827f6a;padding: 7px 12px;border: 1px solid #cac8bb;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border-top-color: #dddac3;text-shadow: 0px 0px 1px rgba(97,97,93,.3);-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);background: #f6f5ea;background: -webkit-gradient(linear, left top, left bottom, from(#f9f9f3), to(#f5f4e6));background: -moz-linear-gradient(top, #f9f9f3, #f5f4e6);filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#f9f9f3', endColorstr='#f5f4e6');}
+.sendbtn: hover{background: #fff;background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#fbfbf5));background: -moz-linear-gradient(top, #fff, #fbfbf5);filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#fff', endColorstr='#fbfbf5');color: #93928d;}
+.clearfix: after{content: ".";display: block;clear: both;visibility: hidden;line-height: 0;height: 0;}
+.clearfix{display: inline-block;}
+html[xmlns] .clearfix{display: block;}
+* html .clearfix{height: 10%;}
+</style> 
+</head>
+
+<body>
+
+<div class="navigation" >
+  <div style="float:right; margin:0px 150px 0px 0px;height:20px;width:20px">
+  <button class="button button-large button-plain button-borderless"><i class="fa fa-gear" style="font-size: 30px"></i></button>
+  </div>
+  <div style="float:right; margin:10px 30px 0px 0px;height:20px">
+    <div class="dropdown"  style="margin-right:70px ;float:right" >
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" style="background-color: rgba(255,255,255,0.95); width: 176px; height: 30px; font-weight: 700;">
+    选择显示区域
+    <span class="caret"></span>
+   </button>
+    <ul class="dropdown-menu" role="menu"  style="background-color:rgba(255,255,255,1);border-radius:4px;margin-top:7px;">
+     <li role="presentation" class="dropdown-header" style="color:#999">当前城市：上海—静安区</a></li>
+     <li class="divider" style="background-color:#000;width:90%;margin-left:10px;margin-top:0px"></li>
+     <p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区域</strong></p>
+     <div style="margin:5px 0px 5px 20px;float:left; line-height:20px">
+    
+    <ul>
+    <li role="presentation" ><a role="menuitem" href="#" style="color:#000">全市区</a></li>
+    <li role="presentation"><a role="menuitem"  href="#" style="color:#000">杨浦区</a></li>
+    <li role="presentation"><a role="menuitem"  href="#" style="color:#000">浦东新区</a></li>
+    </ul>
+   </div>
+   <div style="margin:5px 0px 5px 7px;float:left;line-height:20px">
+    <ul>
+    <li role="presentation" ><a role="menuitem" href="#" style="color:#000"><u>静安区</u></a></li>
+    <li role="presentation"><a role="menuitem"  href="#" style="color:#000">长宁区</a></li>
+    </ul>
+   </div>
+   <div style="margin:5px 0px 5px 15px;float:left;line-height:20px">
+    <ul>
+    <li role="presentation" ><a role="menuitem" href="#" style="color:#000">虹口区</a></li>
+    <li role="presentation"><a role="menuitem"  href="#" style="color:#000">普陀区</a></li>
+    </ul>
+   </div>
+  
+  </ul>
+  </div>
+
+  </div>
+</div>
+
+<div id="container"> 
+</div>
+
+
+
+
+ <div id="cd-menu-trigger" style="top: 75px; right: 30px; height: 40px; width: 180px;border-radius:4px 0 0 4px">
+ <div id="jquery-accordion-menu" class="jquery-accordion-menu red" style="position:absolute;left:0px"  >
+		<ul id="demo-list" style="color:rgba(255,255,255,1);margin-left:0px">
+			<li class="active" style="width:180px">
+                <a href="#"  style="border-top-left-radius: 4px;border-top-right-radius: 4px;"></i><strong>&nbsp;维度切换</strong> </a>
+				<ul class="submenu">
+					
+					 <li><a href="detect.html" style="background-color: rgba(0,0,0,0.6)"><img src="img/实时监测on.png">&nbsp;实时监测</a></li>
+					 <li><a href="attention.html" style="background-color: rgba(0,0,0,0.6)"><img src="img/预警off.png">&nbsp;预警提示发布</a></li>
+                     <li><a href="analysis.html" style="background-color: rgba(0,0,0,0.6)"><img src="img/统计off.png">&nbsp;统计分析</a></li>
+                     <li><a href="detect.html" style ="color:#F90;background-color: rgba(0,0,0,0.6)"><img src="img/大型活动 on.png">&nbsp;大型活动场所监测</a></li>
+				</ul>
+			</li>	
+		</ul>
+		<div class="jquery-accordion-menu-footer" style="height:190px;width:180px;padding-left:0px" >
+  <div class="text-center" style="margin-top:15px;width:180px;">
+  <p style="font-size:18px;color:#FFF;line-height:15px; ">2016/03/01</p>
+  <div id="timediv" style="height:5px;margin-top:0px;margin-left:10px;font-size:18px;color:#FFF;"></div>
+  </div>
+  <div style="margin-top:30px;margin-left:20px;width:140px">
+  <p style="color:#FFF; line-height:40px"> <hr width=100%> </p>
+   <dl  style="color:#FFF;text-align:center">
+    <dt><strong><p style="font-size:15px; "><a href="javascript:;" onclick="jQuery('.mbox').show()" style="color:#FFF">!</a>地区拥堵情况</p></strong> </dt>
+    
+    <dd>良好：<40%</dd>
+    <dd style="padding-left:20px">一般：40%-80%</dd>
+    <dd>严重：>80%</dd>
+  </dl>
+  </div>
+</div>
+	</div>
+            
+          </ul>
+        </li>
+        
+</div>
+
+<div class="mbox">
+    
+        <div class="box2">
+          <a href="javascript:;" onclick="jQuery('.mbox').hide()" >back</a> 
+           <div style="width:200px;height:250px;background:rgba(0,0,0,0.75);border-radius: 4px;">
+				
+		  </div> 
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+ <div id="cd-menu-trigger" style="top: 83px;left:100px; height: 50px; width: 76px;border-radius:4px;color:rgba(0,0,0,0.5) ">
+  <div class="btn-group-vertical" style="position:absolute;left:0px">
+  <button type="button" class="btn btn-default" style="width:76px;height:50px"><img src="img/10.png"></button>
+  <button type="button" class="btn btn-default" style="font-size:18px;color:#FFF;width:76px;height:50px" onClick="meet();" >活动</button>
+  <button id="auto" type="button" class="btn btn-default"  style="font-size:18px;color:#FFF;width:76px;height:50px" onClick="spot();">景点</button>
+  <button type="button" class="btn btn-default"  style="font-size:18px;color:#FFF;width:76px;height:50px">商圈</button>
+</div>
+ </div>
+
+<div class="wraper">
+  <div style="width:80px;margin-top:25px;margin-left:115px;float:left"> 
+      <p style="color:#FFF;font-size:25px;margin-left:20px;margin-bottom:20px;width:100px">实时预警</p>
+         <div id="spot" style="color:#F90;width:100px;font-size:20px;margin-left:25px"></div>
+  </div>
+  
+ 
+  <div style="width:800px;height:115px;margin-right:260px;float:right;margin-top:5px;margin-bottom:10px;background-color:#000;border-radius: 5px">
+   <canvas id="canvas" height="110" width="800"></canvas>
+   </div>
+   <div style="width:80px;height:15px;position:absolute;right:150px;margin-top:70px;">
+   <a href="javascript:;" onclick="jQuery('.box').show()" class="button button-glow button-rounded button-highlight show" style="width:150px">发送预警提示</a>
+    <div class="box">
+    
+        <div class="box1">
+          <a href="javascript:;" onclick="jQuery('.box').hide()"  class="sendbtn" style="margin-bottom: -440px;margin-left:250px" >close</a> 
+          <div id="msgform">
+				<form name="sendprivatemsg" id="sendprivatemsg" action="#" method="post">
+					
+					<div class="break"></div>
+					<label for="mymsg" id="msmglabel">&nbsp;Message</label>
+					<textarea name="mymsg" id="mymsg" class="msgField"></textarea>
+					<p id="errortxt">**Enter some text!</p>
+					<div id="sendbtncontain"><a class="sendbtn" onclick="jQuery('.box').hide()" >Send Message</a></div>
+				</form>
+		</div> 
+        </div>
+    </div>
+           
+ </div>
+</div> 
+
+</body>
+</html>
+<script type="text/javascript">
+var map = new BMap.Map("container",{enableMapClick:false,minZoom:10});
+map.centerAndZoom("上海",12);
+//map.addControl(new BMap.NavigationControl());               // 添加平移缩放控件
+//map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
+//map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
+map.enableScrollWheelZoom();//滚轮放大缩小
+map.setMapStyle({style:'normal'});
+map.addControl( new BMap.NavigationControl({ type: BMAP_NAVIGATION_CONTROL_SMALL}));
+window.onload = function() {
+  document.getElementById("auto").click();}
+</script>
+
+<script type="text/javascript">
+function spot(){
+map.centerAndZoom("外滩",14);
+ $("#spot").html('外滩景区');
+ spotchart();
+ start();
+}
+function meet(){
+	alert('请上传相关数据');}
+</script>
+
+
+
+<script type="text/javascript">
+(function($) {
+$.expr[":"].Contains = function(a, i, m) {
+	return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+};
+function filterList(header, list) {
+	//@header 头部元素
+	//@list 无需列表
+	//创建一个搜素表单
+	var form = $("<form>").attr({
+		"class":"filterform",
+		action:"#"
+	}), input = $("<input>").attr({
+		"class":"filterinput",
+		type:"text"
+	});
+	$(form).append(input).appendTo(header);
+	$(input).change(function() {
+		var filter = $(this).val();
+		if (filter) {
+			$matches = $(list).find("a:Contains(" + filter + ")").parent();
+			$("li", list).not($matches).slideUp();
+			$matches.slideDown();
+		} else {
+			$(list).find("li").slideDown();
+		}
+		return false;
+	}).keyup(function() {
+		$(this).change();
+	});
+}
+$(function() {
+	filterList($("#form"), $("#demo-list"));
+});
+})(jQuery);	
+</script>
+
+<script type="text/javascript">
+    jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
+	
+</script>
+

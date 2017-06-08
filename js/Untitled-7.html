@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>热区+自定义图层</title>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM"></script>
+</head>
+<body>
+<div id="map" style="width:1000px;height:1000px"></div>
+<div id="info" style="width:400px;height:400px"></div>
+<script type="text/javascript">
+var tileLayer = new BMap.TileLayer({isTransparentPng:true});
+
+var map = new BMap.Map('map');
+map.addTileLayer(tileLayer);
+//map.addControl(new BMap.NavigationControl());
+map.centerAndZoom(new BMap.Point(0, 0), 3);
+
+//点击获取屏幕经纬度
+map.addEventListener("click",function(e){
+    document.getElementById("info").innerHTML += e.point.lng + "," + e.point.lat + "</br>";
+});
+
+//创建热区
+var p1 = new BMap.Point(-53.278572,36.83958);
+var h1 = new BMap.Hotspot(p1, {text: "第1个点"});
+map.addHotspot(h1);
+
+var p2 = new BMap.Point(-14.717837,35.647352);
+var h2 = new BMap.Hotspot(p2, {text: "第2个点"});
+map.addHotspot(h2);
+
+var p3 = new BMap.Point(9.713773,36.126444);
+var h3 = new BMap.Hotspot(p3, {text: "第3个点"});
+map.addHotspot(h3);
+
+var p4 = new BMap.Point(43.564799,30.699049);
+var h4 = new BMap.Hotspot(p4, {text: "第4个点"});
+map.addHotspot(h4);
+
+var p5 = new BMap.Point(30.024388,29.418746);
+var h5 = new BMap.Hotspot(p5, {text: "第5个点"});
+map.addHotspot(h5);
+
+var p6 = new BMap.Point(29.141318,18.90614);
+var h6 = new BMap.Hotspot(p6, {text: "第6个点"});
+map.addHotspot(h6);
+
+var p7 = new BMap.Point(37.677664,17.781705);
+var h7 = new BMap.Hotspot(p7, {text: "第7个点"});
+map.addHotspot(h7);
+
+var p8 = new BMap.Point(21.488043,10.607121);
+var h8 = new BMap.Hotspot(p8, {text: "第8个点"});
+map.addHotspot(h8);
+
+var p9 = new BMap.Point(16.189621,15.225979);
+var h9 = new BMap.Hotspot(p9, {text: "第9个点"});
+map.addHotspot(h9);
+
+var p10 = new BMap.Point(11.77427,14.939957);
+var h10 = new BMap.Hotspot(p10, {text: "第10个点"});
+map.addHotspot(h10);
+
+var p11 = new BMap.Point(11.77427,20.855394);
+var h11 = new BMap.Hotspot(p11, {text: "第11个点"});
+map.addHotspot(h11);
+
+var p12 = new BMap.Point(-10.596843,8.562041);
+var h12 = new BMap.Hotspot(p12, {text: "第12个点"});
+map.addHotspot(h12);
+
+var p13 = new BMap.Point(-27.669534,21.131844);
+var h13 = new BMap.Hotspot(p1, {text: "第13个点"});
+map.addHotspot(h13);
+
+var p14 = new BMap.Point(-36.20588,23.866825);
+var h14 = new BMap.Hotspot(p14, {text: "第14个点"});
+map.addHotspot(h14);
+
+var p15 = new BMap.Point(-15.600908,-23.866825);
+var h15 = new BMap.Hotspot(p15, {text: "第15个点"});
+map.addHotspot(h15);
+
+var p16 = new BMap.Point(-4.709708,-10.024106);
+var h16 = new BMap.Hotspot(p16, {text: "第16个点"});
+map.addHotspot(h16);
+
+var p17 = new BMap.Point(19.427545,-4.145408);
+var h17 = new BMap.Hotspot(p17, {text: "第17个点"});
+map.addHotspot(h17);
+
+var p18 = new BMap.Point(47.09708,-13.50419);
+var h18 = new BMap.Hotspot(p18, {text: "第18个点"});
+map.addHotspot(h18);
+
+var p19 = new BMap.Point(55.633426,-8.854941);
+var h19 = new BMap.Hotspot(p19, {text: "第19个点"});
+map.addHotspot(h19);
+
+var p20 = new BMap.Point(-57.105209,2.370216);
+var h20 = new BMap.Hotspot(p20, {text: "第20个点"});
+map.addHotspot(h20);
+
+var p21 = new BMap.Point(-48.274507,-4.736327);
+var h21 = new BMap.Hotspot(p21, {text: "第21个点"});
+map.addHotspot(h21);
+
+var p22 = new BMap.Point(-56.222139,-30.699049);
+var h22 = new BMap.Hotspot(p22, {text: "第22个点"});
+map.addHotspot(h22);
+</script>
+</body>
+</html>

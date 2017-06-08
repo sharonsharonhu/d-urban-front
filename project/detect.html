@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+		<head>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>detect</title>
+            <link href="css/bootstrap.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="css/buttons.css">
+            <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+            <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+            <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+            <script src="js/modernizr.js"></script> <!-- Modernizr -->
+            <script src="js/jquery-1.11.1.min.js"></script>
+            <script src="js/main.js"></script> <!-- Resource jQuery --><script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script src="js/jquery-1.11.2.min.js"></script>
+            <script src="js/botstrap.min.js"></script>
+            <script src="js/Chart.js"></script>
+            <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM"></script>
+            <script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script><script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
+            <script src="js/bcircle.js"></script>
+            <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+            <script type="text/javascript" src="js/buttons.js"></script>
+
+            <style type="text/css">
+                *{
+                    margin: 0;
+                    padding-bottom: 0;
+                    padding-left: 0px;
+                    padding-right: 0px;
+                    padding-top: 0px;
+                }
+                .navigation{background: -webkit-gradient(linear,left top,left bottom,from(#000),to(#999));height:65px}
+                #container{width:100%;height:500px;margin-top:0px}
+                .wraper{background: -webkit-gradient(linear,left top,left bottom,from(#333),to(#000));width:100%;height:130px;position:fixed;bottom:0px;}
+		    </style>
+</head>
+
+<body>
+<div class="navigation" >
+<div style="float:right; margin-right:30px">
+   <button class="button button-large button-plain button-borderless"><i class="fa fa-gear"></i></button>
+   </div>
+
+  <div style="margin-right:80px;float:right">
+   <div class="dropdown"  style="margin-right:60px;margin-top:10px;float:right" >
+  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" style="background-color:rgba(181,181,181,1);width:176px;height:32px;">
+    <strong>选择显示区域</strong>
+    <span class="caret"></span>
+  </button>
+  <ul class="dropdown-menu" role="menu"  style="background-color:rgba(255,255,255,1);border-radius:4px;margin-top:7px;">
+    <li role="presentation" class="dropdown-header" style="color:#999">当前城市：上海——静安区</a></li>
+     <li class="divider" style="background-color:#000;"></li>
+    
+    <p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区域</strong></p>
+    <div style="margin:5px 0px 5px 20px;float:left; line-height:20px">
+    <ul>
+    <li role="presentation" ><a role="menuitem" href="#" style="color:#000">全市区</a></li>
+    <li role="presentation"><a role="menuitem"  href="#" style="color:#000">杨浦区</a></li>
+    <li role="presentation"><a role="menuitem"  href="#" style="color:#000">浦东新区</a></li>
+    </ul>
+   </div>
+   <div style="margin:5px 0px 5px 7px;float:left;line-height:20px">
+    <ul>
+    <li role="presentation" ><a role="menuitem" href="#" style="color:#000"><u>静安区</u></a></li>
+    <li role="presentation"><a role="menuitem"  href="#" style="color:#000">长宁区</a></li>
+    </ul>
+   </div>
+   <div style="margin:5px 0px 5px 15px;float:left;line-height:20px">
+    <ul>
+    <li role="presentation" ><a role="menuitem" href="#" style="color:#000">虹口区</a></li>
+    <li role="presentation"><a role="menuitem"  href="#" style="color:#000">普陀区</a></li>
+    </ul>
+   </div>
+  
+  </ul>
+</div>
+
+  </div>
+</div>
+
+<div id="container"> 
+
+</div>
+
+
+ <div id="cd-menu-trigger" style="top: 83px; right: 0px; height: 34px; width: 54px;border-radius:4px">
+ 
+   <span class="button-dropdown" data-buttons="dropdown" >
+   
+    <button class="button " style="background:url(img/隐藏状态.png) no-repeat;width:30px">
+    </button>
+ 
+     <ul class="dropdown-menu dropdown-menu-right"  style="background-color:rgba(0,0,0,0.9);height:162px;width:164px;border:rgba(0,0,0,0.9)"  role="menu">
+            <li><a href="#" ><p style="margin-left:0px;font-size:15.14px;background-color:#000">&nbsp;维度切换&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="img/arrow.png"></p></a></li>
+             <li class="button-dropdown-divider" >
+             <li role="presentation" class="dropdown-header" style="padding-left:20px"><img src="img/实时监测off.png">&nbsp;&nbsp;实时监测</li>
+            <li class="button-dropdown-divider">
+            <li><a href="#"><img src="img/预警off.png">&nbsp;&nbsp;预警提示&发布</a></li>
+           <li class="button-dropdown-divider">
+            <li><a href="#"><img src="img/统计off.png">&nbsp;&nbsp;统计分析</a></li>
+            <li class="button-dropdown-divider">
+            <li><a href="#"><img src="img/大型活动off.png">&nbsp;&nbsp;大型活动场所监测</a></li>
+
+    </ul>
+  </span>
+         
+          <ul class="dropdown-menu dropdown-menu-right"  style="background-color:rgba(0,0,0,0.9);height:162px;width:164px"  role="menu">
+         
+            
+          </ul>
+        </li>
+        
+</div>
+
+<div id="cd-menu-trigger" style="top: 270px; right: 0px;height:190px;width:164px">
+  <div class="text-center" style="margin-top: 15px; ">
+  <p  style="font-size:18px;color:#FFF;line-height:25px; " >2016/10/08</p>
+  <p style="font-size:20px;color:#FFF;line-height:25px;" >18:00</p>
+  <p style="color:#FFF"> <hr width="100%"/> </p>
+  </div>
+   <dl  style="color:#FFF;text-align:center">
+    <dt><strong><p style="font-size:15px; ">地区拥堵情况</p></strong> </dt>
+    <dd>良好：<40%</dd>
+    <dd style="padding-left:20px">一般：40%-80%</dd>
+    <dd>严重：>80%</dd>
+  </dl>
+
+</div>
+
+<div class="wraper">
+  <div style="width:80px;margin-top:25px;margin-left:115px;float:left"> 
+         <a href="#" onclick="pre()" class="button button-glow button-rounded button-highlight">日预测</a>
+         <a href="#" class="button button-glow button-rounded button-highlight">周预测</a>
+  </div>
+  
+ 
+  <div style="width:800px;height:115px;margin-right:260px;float:right;margin-top:5px;margin-bottom:10px;background-color:#000;border-radius: 5px">
+   <canvas id="canvas" height="110" width="800"></canvas>
+   </div>
+   <div style="width:40px;height:15px;position:absolute;right:200px;margin-top:80px;">
+ <a href="#" class="button  button-border button-rounded button-primary" style="width:180px">返回查看全区域情况</a>
+   </div>
+ 
+   
+
+</div> 
+</body>
+</html>
+<script type="text/javascript">
+var map = new BMap.Map("container");
+map.centerAndZoom(new BMap.Point(116.418261, 39.921984),12);
+map.addControl(new BMap.NavigationControl());               // 添加平移缩放控件
+map.addControl(new BMap.ScaleControl());                    // 添加比例尺控件
+map.addControl(new BMap.OverviewMapControl());              //添加缩略地图控件
+map.enableScrollWheelZoom();//滚轮放大缩小
+
+
+
+var point = new BMap.Point(bcircle[0].lng, bcircle[0].lat);
+var circle = new BMap.Circle(point,bcircle[0].r,{fillColor:"green", strokeWeight: 1 ,fillOpacity: 0.5, strokeOpacity: 0.5});//设置覆盖物的参数，中心坐标，半径，颜色
+map.addOverlay(circle);//在地图上显示圆形覆盖物
+
+
+var data_info = [[116.418265,39.921984,"地址：北京市东城区王府井大街88号乐天银泰百货八层"],
+					 [116.437300,39.931800,"地址：北京市东城区东华门大街"],
+					 [116.436270,39.921788,"地址：北京市东城区正义路甲5号"]
+					];
+	var opts = {
+				width : 250,     // 信息窗口宽度
+				height: 80,     // 信息窗口高度
+				title : "信息窗口" , // 信息窗口标题
+				enableMessage:true//设置允许信息窗发送短息
+			   };
+	for(var i=0;i<data_info.length;i++){
+		var marker = new BMap.Marker(new BMap.Point(data_info[i][0],data_info[i][1]));  // 创建标注
+		var content = data_info[i][2];
+		map.addOverlay(marker);               // 将标注添加到地图中
+		addClickHandler(content,marker);
+	}
+	function addClickHandler(content,marker){
+		marker.addEventListener("click",function(e){
+			openInfo(content,e)}
+		);
+	}
+	function openInfo(content,e){
+		var p = e.target;
+		var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+		var infoWindow = new BMap.InfoWindow(content,opts);  // 创建信息窗口对象 
+		map.openInfoWindow(infoWindow,point); //开启信息窗口
+	}
+
+var point = new BMap.Point(bcircle[1].lng, bcircle[1].lat);
+var circle = new BMap.Circle(point,bcircle[1].r,{fillColor:"green", strokeWeight: 1 ,fillOpacity: 0.5, strokeOpacity: 0.5});//设置覆盖物的参数，中心坐标，半径，颜色
+map.addOverlay(circle);//在地图上显示圆形覆盖物
+
+var point = new BMap.Point(bcircle[2].lng, bcircle[2].lat);
+var circle = new BMap.Circle(point,bcircle[2].r,{fillColor:"green", strokeWeight: 1 ,fillOpacity: 0.5, strokeOpacity: 0.5});//设置覆盖物的参数，中心坐标，半径，颜色
+map.addOverlay(circle);//在地图上显示圆形覆盖物
+
+var point = new BMap.Point(bcircle[3].lng, bcircle[3].lat);
+var circle = new BMap.Circle(point,bcircle[3].r,{fillColor:"green", strokeWeight: 1 ,fillOpacity: 0.5, strokeOpacity: 0.5});//设置覆盖物的参数，中心坐标，半径，颜色
+map.addOverlay(circle);//在地图上显示圆形覆盖物
+var point = new BMap.Point(bcircle[4].lng, bcircle[4].lat);
+var circle = new BMap.Circle(point,bcircle[4].r,{fillColor:"green", strokeWeight: 1 ,fillOpacity: 0.5, strokeOpacity: 0.5});//设置覆盖物的参数，中心坐标，半径，颜色
+map.addOverlay(circle);//在地图上显示圆形覆盖物
+
+mySquare.addEventListener('mousemover',function(){
+    alert('鼠标移上来了');
+});
+
+</script>
+
+
+<script>
+	var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+		var lineChartData = {
+			labels : ["11日","12日","13日","14日","15日","16日","17日"],
+			datasets : [
+				//{
+//					label: "My First dataset",
+//					fillColor : "rgba(220,220,220,0.2)",
+//					strokeColor : "rgba(220,220,220,1)",
+//					pointColor : "rgba(220,220,220,1)",
+//					pointStrokeColor : "#fff",
+//					pointHighlightFill : "#fff",
+//					pointHighlightStroke : "rgba(220,220,220,1)",
+//					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+//				},
+				{
+					label: "My Second dataset",
+					fillColor : "rgba(255,120,0,0.2)",
+					strokeColor : "rgba(255,120,0,1)",
+					pointColor : "rgba(255,120,0,1)",
+					pointStrokeColor : "#fc0",
+					pointHighlightFill : "#fc0",
+					pointHighlightStroke : "rgba(255,153,0,1)",
+					scaleLineWidth : 4,	
+					data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				}
+			]
+
+		}
+
+	 function pre(){
+		var ctx = document.getElementById("canvas").getContext("2d");
+		window.myLine = new Chart(ctx).Line(lineChartData, {
+			responsive: true
+		});
+	}
+</script>
+   
