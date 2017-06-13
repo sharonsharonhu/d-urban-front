@@ -98,6 +98,41 @@ Main components
   }
 }
 
+#arrow-menu {
+    position: absolute;
+    /* [disabled]right: 70px; */
+    /* [disabled]top: 92px; */
+    height: 34px;
+    width: 20px;
+    background-color: rgba(0,0,0,0.9);
+}
+#arrow-menu .cd-menu-text {
+    height: 100%;
+    text-transform: uppercase;
+    color: #FFF;
+    font-weight: 600;
+    display: none;
+}
+#arrow-menu .cd-menu-icon {
+    /* this span is the central line in the menu menu */
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    top: 18px;
+    bottom: auto;
+    right: auto;
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+    -o-transform: translateX(-50%) translateY(-50%);
+    transform: translateX(-50%) translateY(-50%);
+    width: 18px;
+    height: 2px;
+    background-color: #FFF;
+    /* these are the upper and lower lines in the menu menu */
+}
+
+
 #cd-menu-trigger {
 	position: absolute;
 	/* [disabled]right: 70px; */
@@ -131,6 +166,69 @@ Main components
 	background-color: #FFF;
   /* these are the upper and lower lines in the menu menu */
 }
+#arrow-menu .cd-menu-icon::before, #arrow-menu .cd-menu-icon:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-color: inherit;
+    left: 0;
+    /* Force Hardware Acceleration in WebKit */
+    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+}
+#arrow-menu .cd-menu-icon::before {
+    bottom: 5px;
+}
+#arrow-menu .cd-menu-icon::after {
+    top: 5px;
+}
+#arrow-menu.is-clicked .cd-menu-icon {
+    background-color: rgba(255, 255, 255, 0);
+}
+#arrow-menu.is-clicked .cd-menu-icon::before, #arrow-menu.is-clicked .cd-menu-icon::after {
+    background-color: white;
+}
+#arrow-menu.is-clicked .cd-menu-icon::before {
+    bottom: 0;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+#arrow-menu.is-clicked .cd-menu-icon::after {
+    top: 0;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+@media only screen and (min-width: 768px) {
+    #arrow-menu {
+        width: 99px;
+        padding-left: 1.25em;
+    }
+    #arrow-menu .cd-menu-text {
+        display: inline-block;
+        line-height: 70px;
+    }
+    #arrow-menu .cd-menu-icon {
+        left: auto;
+        right: 24px;
+        -webkit-transform: translateX(0);
+        -moz-transform: translateX(0);
+        -ms-transform: translateX(0);
+        -o-transform: translateX(0);
+        transform: translateX(0);
+    }
+}
+
+
+
+
+
 #cd-menu-trigger .cd-menu-icon::before, #cd-menu-trigger .cd-menu-icon:after {
   content: '';
   width: 100%;

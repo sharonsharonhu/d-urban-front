@@ -1,0 +1,412 @@
+<!--
+    detect page
+-->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>detect</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+    <link href="css/jquery-accordion-menu.css" rel="stylesheet" type="text/css"/>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link href="css/jquery-accordion-menu.css" rel="stylesheet" type="text/css"/>
+    <link href="css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="css/style_h.css" media="screen"/>
+    <link rel="stylesheet" href="css/cikonss.css"/>
+    <!--datetimepicker-->
+    <link href="bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+    <script src="js/jquery-1.11.2.min.js"></script>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="js/jquery-1.11.2.min.js" type="text/javascript"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+
+    <script src="js/bootstrap.js"></script>
+    <script src="js/Chart.js"></script>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=2.0&ak=6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/Heatmap/2.0/src/Heatmap_min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
+    <script src="js/modernizr.js"></script> <!-- Modernizr -->
+    <script src="js/main.js"></script> <!-- Resource jQuery -->
+    <script type="text/javascript" src="js/buttons.js"></script>
+
+    <script src="js/jquery-accordion-menu.js" type="text/javascript"></script>
+
+    <!--datetimepicker-->
+    <script type="text/javascript" src="bootstrap/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="bootstrap/js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding-bottom: 0;
+            padding-left: 0px;
+            padding-right: 0px;
+            padding-top: 0px;
+        }
+
+        .navigation {
+            background:#4ab4f0;
+            height: 45px;
+        }
+
+        #map {
+            width: 100%;
+            height: 595px;
+            margin-top: 0px;
+        }
+
+        .wraper {
+            background:rgba(245, 244, 241, 0.75);
+            width: 100%;
+            height: 19%;
+            position: fixed;
+            bottom: 0px;
+        }
+
+        #demo-list a {
+            overflow: hidden;
+            /*text-overflow:ellipsis;*/
+            -o-text-overflow: ellipsis;
+            white-space: nowrap;
+            width: 100%;
+        }
+
+    </style>
+</head>
+
+<body>
+<!--navigation-->
+<div class="navigation">
+    <!--logo-->
+    <div style="position:absolute;left:4%;top:2px;height:60px;width:60px;">
+        <img style="width:100%;height:100%" src="img/logo.png">
+    </div>
+
+    <!--timepicker-->
+    <div style="position:absolute;left:55%;top:10px;height:20px;width:200px">
+        <div class="dropdown" style="margin-right:70px ;float:right;width: 176px;">
+            <div class="input-group date form_date col-md-5" data-date="" data-date-format="yyyy-mm-dd" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd"
+            style="width:200px;background-color:rgba(0,0,0,0.6);margin-left:0px;">
+            <input id="selectedTime" class="form-control" style=" height:30px" size="16" type="text" value="2016-03-01"
+                   readonly onChange="dateChange()">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+            <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        </div>
+        <input type="hidden" id="dtp_input2" value="" style="color:#000"/><br/>
+    </div>
+</div>
+
+<!--placepicker-->
+<div style="position:absolute;left:70%;top:10px;height:20px;width:200px">
+    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+            style="background-color: rgba(255,255,255,0.95); width: 176px; height: 30px; font-weight: 700;"> 选择显示区域
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu"
+        style="background-color:rgba(255,255,255,1);border-radius:4px;margin-top:13px;">
+        <li role="presentation" class="dropdown-header" style="color:#999">当前城市：上海—静安区</a></li>
+        <li class="divider" style="background-color:#000;width:90%;margin-left:10px;margin-top:0px"></li>
+        <li><p><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区域</strong></p></li>
+        <div style="margin:5px 0px 5px 20px;float:left; line-height:20px">
+            <ul>
+                <li role="presentation"><a role="menuitem" href="#" style="color:#000" onclick="theLocation()">全市区</a>
+                </li>
+                <li role="presentation"><a role="menuitem" href="#" style="color:#000" onclick="theLocation1()">杨浦区</a>
+                </li>
+
+                <li role="presentation"><a role="menuitem" href="#" style="color:#000" onclick="theLocation()">黄浦区</a>
+                </li>
+                <li role="presentation"><a role="menuitem" href="#" style="color:#000" onclick="theLocation1()">徐汇区</a>
+                </li>
+                <li role="presentation"><a role="menuitem" href="#" style="color:#000" onclick="theLocation6()">奉贤区</a>
+                </li>
+                <li role="presentation"><a role="menuitem" href="#" style="color:#000" onclick="theLocation2()">浦东新区</a>
+                </li>
+            </ul>
+        </div>
+    </ul>
+</div>
+</div>
+
+<div id="map">
+
+</div>
+
+
+<!--left-navigation-->
+<div id="cd-menu-trigger" style="top: 83px;left:30px; height:40px; width:60px;background-color:rgba(84,84,84,0)">
+    <div class="btn-group-vertical" style="position:absolute;">
+        <button type="button" class="btn btn-default" style="width:60px;height:40px;background-color:rgb(84, 84, 84)"><img src="img/hand_2.png"></button>
+        <button type="button" class="btn btn-default" style="width:60px;height:40px;background-color:rgba(255,255,255,0.85);padding: 0px;" onClick="meet();"><img src="img/predict_1.png"></button>
+        <button id="auto" type="button" class="btn btn-default"  style="font-size:14px;color:#333;width:60px;height:40px;background-color:rgba(255,255,255,0.85)" onClick="spot();">巡警</button>
+        <button type="button" class="btn btn-default"  style="font-size:14px;color:#333;width:60px;height:40px;background-color:rgba(255,255,255,0.85)">统计</button>
+    </div>
+</div>
+
+<!--tips-->
+<div id="arrow-menu" style="right:10px;bottom:150px;background-color:rgba(84,84,84,0);width:160px">
+    <div class="dropup" style="float:right">
+        <a href="#"   type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img src="img/arrow_up.png">
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dLabel" style="width:106px;height: 192px;background: rgba(255,255,255,0.8);
+             padding: 6px 6px;font: 14px/16px Arial, Helvetica, sans-serif;border-radius: 5px;text-align: left;line-height: 18px;color: #555">
+            <dt><strong><p style="font-size:15px; ">人群聚集疏散情况</p></strong></dt>
+            <dd>轻度: <40%</dd>
+            <dd>中度：40%-80%</dd>
+            <dd>重度：>80%</dd>
+            <dd><i style="width: 30px;height:18px;background: #a50026;float: left;margin-right: 8px;opacity: 0.7;"></i>火山</dd>
+            <dd><i style="width: 30px;height:18px;background: #1a9850;float: left;margin-right: 8px;opacity: 0.7;"></i>黑洞</dd>
+            <dd><i style="width: 30px;height:18px;background: #fee08b;float: left;margin-right: 8px;opacity: 0.7;"></i>异常</dd>
+
+        </ul>
+    </div>
+</div>
+<!--&lt;!&ndash;right-navigation&ndash;&gt;-->
+<!--<div id="cd-menu-trigger" style="top: 75px; right: 30px; height:50px; width: 180px;border-radius:4px 4px 0 0">-->
+    <!--<div id="jquery-accordion-menu" class="jquery-accordion-menu red"-->
+         <!--style="position:absolute;left:0px;border-radius:4px">-->
+        <!--<ul id="demo-list" style="color:rgba(255,255,255,1);margin-left:0px">-->
+            <!--<li class="active" style="width:180px"><a href="#" style="border-radius:4px 4px 0 0">-->
+                <!--<strong>&nbsp;维度切换</strong></i></a>-->
+                <!--<ul class="submenu">-->
+                    <!--<li><a href="#" style="color:#F90;background-color:rgba(0,0,0,0.6)"">-->
+                        <!--<img src="img/jianceoff.png">&nbsp;实时监测</a></li>-->
+                    <!--<li><a href="project/attention.html" style="background-color:rgba(0,0,0,0.6)">-->
+                        <!--<img src="img/yujingoff.png">&nbsp;预警提示发布</a></li>-->
+                    <!--<li><a href="project/analysis.html" style="background-color:rgba(0,0,0,0.6)">-->
+                        <!--<img src="img/tongjioff.png">&nbsp;统计分析</a></li>-->
+                    <!--<li><a href="activity.html" style="background-color:rgba(0,0,0,0.6)">-->
+                        <!--<img src="img/huodongoff.png">&nbsp;大型活动场所监测</a></li>-->
+                <!--</ul>-->
+            <!--</li>-->
+        <!--</ul>-->
+
+
+        <!--&lt;!&ndash;message&ndash;&gt;-->
+        <!--<div class="jquery-accordion-menu-footer" style="height:190px;width:180px;padding-left:0px">-->
+            <!--<div style="margin-top:0px;width:180px;">-->
+                <!--<div id="dateDiv"-->
+                     <!--style="height:10px;margin-top:0px;margin-left:40px;font-size:18px;color:#FFF;height:15px">-->
+                    <!--<p style="font-size:18px;color:#FFF;text-align:left">2016-03-01</p>-->
+                <!--</div>-->
+                <!--<div id="timediv"-->
+                     <!--style="height:10px;width:20px;margin-top:5px;margin-bottom:5px;margin-left:60px;font-size:18px;color:#FFF;float:left">-->
+                    <!--00:00-->
+                <!--</div>-->
+
+
+                <!--<div style="margin-top:40px;margin-left:20px;width:140px">-->
+                    <!--<p style="color:#FFF;">-->
+                    <!--<hr width=100%>-->
+                    <!--</p>-->
+                    <!--<dl style="color: #FFF; text-align: left">-->
+                        <!--<dt><strong><p style="font-size:15px; ">人群聚集疏散情况</p></strong></dt>-->
+                        <!--<dd>轻度: <40%</dd>-->
+                        <!--<dd>中度：40%-80%</dd>-->
+                        <!--<dd>重度：>80%</dd>-->
+                    <!--</dl>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--bottom-->
+<div class="wraper">
+    <div style="width:150px;margin-top:25px;margin-left:40px;float:left">
+        <div class="btn-group dropup">
+            <button type="button" class="btn btn-default" onclick="allDay();">日变化情况</button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#" onclick="weekChange();">周变化情况</a></li>
+                <li><a href="#" onclick="weekChange();">返回全局视图</a></li>
+            </ul>
+        </div>
+
+        <div id="switch" style="height:10px;width:10px;position:absolute;margin-top:10px;">
+            <a href="#" onclick="playPause();">
+                <img id="btn" src="img/play.png"></a>
+        </div>
+    </div>
+    <div style="width:70%;height:95%;margin-right:200px;float:right;margin-top:5px;margin-bottom:10px;background-color:rgba(0,0,0,0.05);border-radius: 5px">
+        <!--slider-->
+        <div style="position:relative;height:5px;margin-left:30px">
+            <a href="#">
+                <div id="drag"
+                     style="margin-top:10px;background-color:#4ab4f0;width:5px;height:90px;" onmouseover='Move_obj("drag")' readonlyonChange="timeComtrol()">
+                </div>
+            </a>
+        </div>
+        <script language="JavaScript" type="text/javascript">
+            var drag_ = false;
+            var D = new Function('obj', 'return document.getElementById(obj);');
+            var event = window.event || event;
+            function Move_obj(obj) {
+                var x, y;
+                D(obj).onmousedown = function (event) {
+                    drag_ = true;
+                    with (this) {
+                        style.position = "absolute";
+                        var temp1 = offsetLeft;
+                        var temp2 = offsetTop;
+                        x = event.clientX;
+                        y = event.clientY;
+                        onmousemove = function (event) {
+                            if (!drag_)return false;
+                            with (this) {
+                                var move_x = temp1 + event.clientX - x;
+                                style.left = move_x < 780 ? move_x + "px" : 0 + "px";
+                                var a = temp1;
+                                innerHTML = temp1 + ' ';//+event.clientX+' '+x+'<br />'+move_x;
+                                //style.top=temp2+oevent(e).clientY-y+"px";
+                            }
+                        }
+                    }
+                    document.onmouseup = new Function("drag_=false");
+                }
+            }
+
+
+        </script>
+        <script type="text/javascript" src="js/data.js"></script>
+        <script type="text/javascript" src="js/allday.js"></script>
+        <canvas id="canvas" height="100%" width="800"></canvas>
+
+
+    </div>
+
+</div>
+</div>
+</body>
+</html>
+
+
+<script type="text/javascript">
+    function dateChange() {
+
+        var ctx = document.getElementById("selectedTime").value;
+        date = ctx;
+        hour = 0;
+        group = 1;
+        console.log(ctx + " " + date);
+        $("#dateDiv").html(ctx);
+
+    }
+</script>
+
+
+<script type="text/javascript">
+    $('.form_date').datetimepicker({
+        language: 'fr',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+
+</script>
+
+
+<script type="text/javascript">
+
+    function theLocation() {
+        map.centerAndZoom("上海", 12);
+    }
+    function theLocation1() {
+        map.centerAndZoom("杨浦区", 14);
+    }
+    function theLocation2() {
+        map.centerAndZoom("浦东新区", 14);
+    }
+    function theLocation3() {
+        map.centerAndZoom("静安区", 14);
+    }
+    function theLocation4() {
+        map.centerAndZoom("长宁区", 14);
+    }
+    function theLocation5() {
+        map.centerAndZoom("虹口区", 14);
+    }
+    function theLocation6() {
+        map.centerAndZoom("普陀区", 14);
+    }
+
+</script>
+<script type="text/javascript">
+    (function ($) {
+        $.expr[":"].Contains = function (a, i, m) {
+            return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase()) >= 0;
+        };
+        function filterList(header, list) {
+            //@header 头部元素
+            //@list 无需列表
+            //创建一个搜素表单
+            var form = $("<form>").attr({
+                "class": "filterform",
+                action: "#"
+            }), input = $("<input>").attr({
+                "class": "filterinput",
+                type: "text"
+            });
+            $(form).append(input).appendTo(header);
+            $(input).change(function () {
+                var filter = $(this).val();
+                if (filter) {
+                    $matches = $(list).find("a:Contains(" + filter + ")").parent();
+                    $("li", list).not($matches).slideUp();
+                    $matches.slideDown();
+                } else {
+                    $(list).find("li").slideDown();
+                }
+                return false;
+            }).keyup(function () {
+                $(this).change();
+            });
+        }
+
+        $(function () {
+            filterList($("#form"), $("#demo-list"));
+        });
+    })(jQuery);
+</script>
+
+<script type="text/javascript">
+    jQuery("#jquery-accordion-menu").jqueryAccordionMenu();
+
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        document.getElementById("btn").click();
+        allDay();
+    });
+</script>
+
+<script type="text/javascript">
+    function playPause() {
+        if (btn.src.search("img/play.png") != -1) {
+            btn.src = "img/pause.png";
+            start();
+
+        }
+        else {
+            btn.src = "img/play.png";
+            pause();
+        }
+    }
+</script>

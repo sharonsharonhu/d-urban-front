@@ -106,7 +106,7 @@
 			scaleFontStyle: "normal",
 
 			// String - Scale label font colour
-			scaleFontColor: "#666",
+			scaleFontColor: "#2382b9",
 
 			// Boolean - whether or not the chart should be responsive and resize when the browser does.
 			responsive: false,
@@ -3172,7 +3172,7 @@
 			pointLabelFontSize : 10,
 
 			//String - Point label font colour
-			pointLabelFontColor : "#666",
+			pointLabelFontColor : "#2382b9",
 
 			//Boolean - Whether to show a dot for each point
 			pointDot : true,

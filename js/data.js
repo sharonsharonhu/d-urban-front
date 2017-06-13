@@ -1,4 +1,4 @@
-var map = new BMap.Map("container"); // 创建地图实例
+var map = new BMap.Map("map"); // 创建地图实例
 var point = new BMap.Point(121.481387, 31.218024);
 map.centerAndZoom(point, 12); // 初始化地图，设置中心点坐标和地图级别
 map.enableScrollWheelZoom(); // 允许滚轮缩放
@@ -283,15 +283,14 @@ function procBlackhole() {
 
 var optsBl = {
 		width : 30, // 信息窗口宽度
-		height : 70, // 信息窗口高度
-		title : "<p style='font-size:30px;color:#000;margin-bottom: 5px'>"
-				+ "黑洞" + "</p>",// 信息窗口标题
+		height : 50, // 信息窗口高度
+		title : "<p style='font-size:20px;color:rgba(1,16,1,0.95);line-height: 5pt'>"+"黑洞"+"</p>",// 信息窗口标题
 }
 
 var optsVo = {
 		width : 30, // 信息窗口宽度
-		height : 70, // 信息窗口高度
-		title : "<p style='font-size:30px;color:#000;margin-bottom: 5px'>"
+		height : 50, // 信息窗口高度
+		title : "<p style='font-size:20px;color:#000;line-height: 5pt'>"
 				+ "火山" + "</p>",// 信息窗口标题
 }
 
@@ -409,7 +408,7 @@ function dailyChange() {
 				"--", "--", "--" ],
 		datasets : [ {
 			label : "My first dataset",
-			fillColor : "rgba(0,0,0,1)",
+			fillColor : "#3f51b5",
 			strokeColor : "rgba(255,120,0,1)",
 			pointColor : "rgba(255,120,0,1)",
 			pointStrokeColor : "rgba(255,120,0,1)",
@@ -432,7 +431,7 @@ function weekChange() {
 		labels : [ "Mon", "Tue", "Wed", "Thurs", "Fri", "Pre", "--" ],
 		datasets : [ {
 			label : "My first dataset",
-			fillColor : "rgba(0,0,0,1)",
+			fillColor : "rgba(0,0,0,0)",
 			strokeColor : "rgba(255,120,0,1)",
 			pointColor : "rgba(255,120,0,1)",
 			pointStrokeColor : "rgba(255,120,0,1)",

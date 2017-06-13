@@ -37,34 +37,32 @@ function allDay(){
 			datasets : [
 				{
 					label: "My first dataset",
-					fillColor:"rgba(0,0,0,1)",
+					fillColor:"rgba(0,0,0,0.05)",
 					strokeColor : "#F00",
 					pointColor : "#F00",
 					pointStrokeColor : "#f30",
-					pointHighlightFill : "#f30",
-					pointHighlightStroke : "#f30",
-					scaleLineWidth :10,	
-					datasetStrokeWidth : 4,
-					pointDotRadius : 4,
-					data :bstate
+					scaleLineWidth :5,
+					datasetStrokeWidth : 1,
+					pointDotRadius : 1,
+                    scaleFontColor : "#000000",
+					data :bstate,
+
 				},
 				{
 					label: "My Second dataset",
-					fillColor : "rgba(0,0,0,1)",
+					fillColor :"rgba(0,0,0,0.05)",
 					strokeColor : "green",
 					pointColor : "green",
 					pointStrokeColor : "#060",
-					pointHighlightFill : "#060",
-					pointHighlightStroke : "060",
-					scaleLineWidth :10,	
+					scaleLineWidth :1,
 					data : vstate
 				},{
 					
 					fillColor : "transparent",
-					strokeColor : "grey",
-					pointColor : "black", 
+					strokeColor : "rgba(0,0,0,0.05)",
+					pointColor : "rgba(0,0,0,0.05)",
 					pointStrokeColor : "transparent",
-	                pointDotRadius : 2, 	
+	                pointDotRadius : 1,
 					data : data33,
 				}
 			]
@@ -93,49 +91,48 @@ $.ajax({
 		}
 	});
 	
-function weekChange() {
-	 var lineChartDataall = {
-			labels : [ "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun" ],
-			datasets : [
-				{
-					label: "My first dataset",
-					fillColor:"rgba(0,0,0,1)",
-					strokeColor : "#F00",
-					pointColor : "#F00",
-					pointStrokeColor : "#f30",
-					pointHighlightFill : "#f30",
-					pointHighlightStroke : "#f30",
-					scaleLineWidth :10,	
-					datasetStrokeWidth : 4,
-					pointDotRadius : 4,
-					data :pbstate
-				},
-				{
-					label: "My Second dataset",
-					fillColor : "rgba(0,0,0,1)",
-					strokeColor : "green",
-					pointColor : "green",
-					pointStrokeColor : "#060",
-					pointHighlightFill : "#060",
-					pointHighlightStroke : "060",
-					scaleLineWidth :10,	
-					data : pvstate
-				},{
-					
-					fillColor : "transparent",
-					strokeColor : "grey",
-					pointColor : "black", 
-					pointStrokeColor : "transparent",
-	                pointDotRadius : 2, 	
-					data : data33,
-				}
-			]
-	 }
-			 var ctx1 = document.getElementById("canvas").getContext("2d");
-		window.myLine = new Chart(ctx1).Line(lineChartDataall, {
-			responsive: true
-		});
-	
-}
+// function weekChange() {
+// 	 var lineChartDataall = {
+// 			labels : [ "Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun" ],
+// 			datasets : [
+// 				{
+// 					label: "My first dataset",
+// 					fillColor:"rgba(0,0,0,0.05)",
+// 					strokeColor : "#F00",
+// 					pointColor : "#F00",
+// 					pointStrokeColor : "#f30",
+// 					pointHighlightFill : "#f30",
+// 					pointHighlightStroke : "#f30",
+// 					scaleLineWidth :10,
+// 					datasetStrokeWidth : 4,
+// 					pointDotRadius : 4,
+// 					data :pbstate
+// 				},
+// 				{
+// 					label: "My Second dataset",
+// 					fillColor : "rgba(0,0,0,0.05)",
+// 					strokeColor : "green",
+// 					pointColor : "green",
+// 					pointStrokeColor : "#060",
+// 					pointHighlightFill : "#060",
+// 					pointHighlightStroke : "060",
+// 					scaleLineWidth :10,
+// 					data : pvstate
+// 				},{
+//
+// 					fillColor : "transparent",
+// 					pointColor : "#faf9f7",
+// 					pointStrokeColor : "transparent",
+// 	                pointDotRadius : 2,
+// 					data : data33,
+// 				}
+// 			]
+// 	 }
+// 			 var ctx1 = document.getElementById("canvas").getContext("2d");
+// 		window.myLine = new Chart(ctx1).Line(lineChartDataall, {
+// 			responsive: true
+// 		});
+//
+// }
 
 	

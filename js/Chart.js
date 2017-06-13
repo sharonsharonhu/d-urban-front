@@ -106,7 +106,7 @@
 			scaleFontStyle: "normal",
 
 			// String - Scale label font colour
-			scaleFontColor: "#666",
+			scaleFontColor: "#faf9f7",
 
 			// Boolean - whether or not the chart should be responsive and resize when the browser does.
 			responsive: false,
@@ -2895,7 +2895,7 @@
 		scaleShowLabelBackdrop : true,
 
 		//String - The colour of the label backdrop
-		scaleBackdropColor : "rgba(255,255,255,0.75)",
+		scaleBackdropColor : "#fff",
 
 		// Boolean - Whether the scale should begin at zero
 		scaleBeginAtZero : true,
@@ -3169,22 +3169,22 @@
 			pointLabelFontStyle : "normal",
 
 			//Number - Point label font size in pixels
-			pointLabelFontSize : 10,
+			pointLabelFontSize : 5,
 
 			//String - Point label font colour
-			pointLabelFontColor : "#666",
+			pointLabelFontColor : "#011001",
 
 			//Boolean - Whether to show a dot for each point
-			pointDot : true,
+			pointDot : false,
 
 			//Number - Radius of each point dot in pixels
-			pointDotRadius : 3,
+			pointDotRadius :1,
 
 			//Number - Pixel width of point dot stroke
 			pointDotStrokeWidth : 1,
 
 			//Number - amount extra to add to the radius to cater for hit detection outside the drawn point
-			pointHitDetectionRadius : 20,
+			pointHitDetectionRadius : 10,
 
 			//Boolean - Whether to show a stroke for datasets
 			datasetStroke : true,
@@ -3193,7 +3193,7 @@
 			datasetStrokeWidth : 2,
 
 			//Boolean - Whether to fill the dataset with a colour
-			datasetFill : true,
+			datasetFill : false,
 
 			//String - A legend template
 			legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
@@ -3475,3 +3475,4 @@
 
 
 }).call(this);
+
