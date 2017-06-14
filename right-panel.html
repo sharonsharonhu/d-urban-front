@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Right-Panel</title>
+    <!--JQuery 必须在所有插件之前引用-->
+    <script src="./js/jquery-1.11.1.min.js" type="text/javascript"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js" type="text/javascript"></script>
+
+    <!--Bootcss-->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!--BootJS-->
+    <script src="./js/bootstrap.min.js" type="text/javascript"></script>
+
+    <!--Fontawesome-->
+    <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="./css/font-awesome.css" rel="stylesheet" type="text/css"/>
+
+    <!--Vue.js-->
+
+    <!--app-->
+    <script src="./js/fullscreen.js" type="text/javascript"></script>
+
+    <!-- CSS -->
+    <link href="./css/right-panel.css" rel="stylesheet">
+</head>
+<body>
+
+
+<!-- Bootstrap collapse
+<div class="right-panel">
+    <button id="btnPanelToggle" class="btn" role="button" data-toggle="collapse" data-target="#collapseRightPanel" aria-controls="#collapseRightPanel">
+        show
+    </button>
+    <div class="collapse in" id="collapseRightPanel">
+        <div id="right-panel-content">
+
+        </div>
+    </div>
+</div>
+-->
+<div>
+
+    <!-- JQuery animation -->
+    <button class="btnPanelToggle" value="0">
+        show
+    </button>
+    <div class="right-panel">
+        <div id="right-panel-content">
+            <!-- Control -->
+            <button class="btnPanelToggle btn-normal" value="1"><i class="fa fa-times"></i></button>
+
+            <div class="content-frame">
+                <h3>巡警实况</h3>
+                <!-- list -->
+                <ul class="list-unstyled">
+                    <li class="video-item">
+                        <video class="r-video" autoplay="autoplay" loop="loop" src="./videos/2.mp4"></video>
+                        <div class="video-cap">
+                            <div class="camera-info">
+                                <ul class="list-inline">
+                                    <li><h5>Camera-942</h5></li>
+                                    <li class="li-pull-right"><h5><i class="fa fa-circle healthy"></i> 正常</h5></li>
+                                    <li><a class="btn btn-view-info" data-toggle="modal" href="#main-modal">查看详情</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="video-item">
+                        <video class="r-video" autoplay="autoplay" loop="loop" src=""></video>
+                        <div class="video-cap">
+                            <div class="camera-info">
+                                <ul class="list-inline">
+                                    <li><h5>Camera-942</h5></li>
+                                    <li class="li-pull-right"><h5><i class="fa fa-circle ill"></i> 故障</h5></li>
+                                    <li><a class="btn btn-view-info" data-toggle="modal" href="#main-modal">查看详情</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="video-item">
+                        <video class="r-video" autoplay="autoplay" loop="loop" src="./videos/2.mp4"></video>
+                        <div class="video-cap">
+                            <div class="camera-info">
+                                <ul class="list-inline">
+                                    <li><h5>Camera-942</h5></li>
+                                    <li class="li-pull-right"><h5><i class="fa fa-circle healthy"></i> 正常</h5></li>
+                                    <li><a class="btn btn-view-info" data-toggle="modal" href="#main-modal">查看详情</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="video-item">
+                        <video class="r-video" autoplay="autoplay" loop="loop" src="./videos/2.mp4"></video>
+                        <div class="video-cap">
+                            <div class="camera-info">
+                                <ul class="list-inline">
+                                    <li><h5>Camera-942</h5></li>
+                                    <li class="li-pull-right"><h5><i class="fa fa-circle healthy"></i> 正常</h5></li>
+                                    <li><a class="btn btn-view-info" data-toggle="modal" href="#main-modal">查看详情</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="video-item">
+                        <video class="r-video" autoplay="autoplay" loop="loop" src="./videos/2.mp4"></video>
+                        <div class="video-cap">
+                            <div class="camera-info">
+                                <ul class="list-inline">
+                                    <li><h5>Camera-942</h5></li>
+                                    <li class="li-pull-right"><h5><i class="fa fa-circle healthy"></i> 正常</h5></li>
+                                    <li><a class="btn btn-view-info" data-toggle="modal" href="#main-modal">查看详情</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="video-item">
+                        <video class="r-video" autoplay="autoplay" loop="loop" src="./videos/2.mp4"></video>
+                        <div class="video-cap">
+                            <div class="camera-info">
+                                <ul class="list-inline">
+                                    <li><h5>Camera-942</h5></li>
+                                    <li class="li-pull-right"><h5><i class="fa fa-circle healthy"></i> 正常</h5></li>
+                                    <li><a class="btn btn-view-info" data-toggle="modal" href="#main-modal">查看详情</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Large modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">查看详情</button>
+
+    <div id="main-modal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+         aria-labelledby="myLargeModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <ul class="list-inline">
+                        <li><h4 class="modal-title" id="myModalLabel">Camera-942</h4></li>
+                        <li><h4><i class="fa fa-circle healthy"></i> 正常</h4></li>
+                    </ul>
+                </div>
+                <div class="modal-body">
+                    <video class="r-video" autoplay="autoplay" loop="loop" src="./videos/2.mp4"></video>
+                </div>
+            </div>
+            <div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary">确定</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+    // 显示右边Panel
+    var flag = document.getElementsByClassName("btnPanelToggle").value;
+    $(".btnPanelToggle").click(function () {
+        if (flag == 0) {
+            $(".right-panel").animate({
+                //TODO
+            }, "fast", function () {
+                $(".right-panel").css("visibility", "visible");
+            });
+            $(".btnPanelToggle").text("×");
+            flag = 1;
+        }
+        else {
+            $(".right-panel").animate({
+                //TODO
+            }, "fast", function () {
+                $(".right-panel").css("visibility", "hidden");
+            });
+            $(".btnPanelToggle").text("show");
+            flag = 0;
+        }
+    });
+
+</script>
+
+
+</body>
+
+
+</html>
