@@ -7,7 +7,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>detect</title>
+    <title>xunjing</title>
+
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/buttons.css">
     <link href="http://cdn.bootcss.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
@@ -22,6 +23,7 @@
     <!--datetimepicker-->
     <link href="bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="Font-Awesome-3.2.1/css/font-awesome.min.css">
 
     <script src="js/jquery-1.11.2.min.js"></script>
     <script src="js/jquery-1.11.1.min.js"></script>
@@ -30,6 +32,8 @@
     <script src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
 
     <script src="js/bootstrap.js"></script>
+
+
     <script src="js/Chart.js"></script>
     <script type="text/javascript"
             src="http://api.map.baidu.com/api?v=2.0&ak=6jdo4O4ZUTy5abPxdmPn49vkV4WcLRYM"></script>
@@ -60,16 +64,17 @@
 
         #map {
             width: 100%;
-            height: 595px;
+            height:600px;
             margin-top: 0px;
         }
 
         .wraper {
-            background:rgba(245, 244, 241, 0.75);
-            width: 100%;
-            height: 19%;
+            background:rgba(245, 244, 241, 0.7);
+            width: 35%;
+            height: 15%;
             position: fixed;
             bottom: 0px;
+            left:35%;
         }
 
         #demo-list a {
@@ -79,6 +84,9 @@
             white-space: nowrap;
             width: 100%;
         }
+
+
+
 
     </style>
 </head>
@@ -92,26 +100,25 @@
     </div>
 
 
-<!--placepicker-->
-<div style="position:absolute;right: 300px;top:10px;height:20px;width:200px;">
-    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
-            style="background-color:rgba(255,255,255,0); width: 155px; height: 30px; font-weight: 700;"> China-Shanghai
-        <span class="caret"></span>
-    </button>
-    <ul class="dropdown-menu" role="menu" style="background-color:rgba(255,255,255,0.8);border-radius:4px;margin-top:13px;">
-        <div style="margin:5px 0px 5px 20px;float:left; line-height:20px">
-            <ul>
-                <li role="presentation"><a role="menuitem" href="#" style="color:#000" onclick="theLocation()">England-London</a>
-                </li>
-            </ul>
-        </div>
-    </ul>
-</div>
+    <!--placepicker-->
+    <div style="position:absolute;right: 300px;top:10px;height:20px;width:200px;">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                style="background-color:rgba(255,255,255,0); width: 155px; height: 30px; font-weight: 700;"> China-Shanghai
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu" style="background-color:rgba(255,255,255,0.8);border-radius:4px;margin-top:13px;">
+            <div style="margin:5px 0px 5px 20px;float:left; line-height:20px">
+                <ul>
+                    <li role="presentation"><a role="menuitem" href="#" style="color:#000" onclick="theLocation()">England-London</a>
+                    </li>
+                </ul>
+            </div>
+        </ul>
+    </div>
 </div>
 
 
 <!--timepicker-->
-
 
 <div style="position:absolute;right:150px;top:10px;height:20px;width:100px">
     <div class="dropdown" style="margin-right:70px ;float:right;width:100px;">
@@ -129,12 +136,10 @@
 
 
 
-
-
 <div id="map">
-
+    <!--<script type="text/javascript" src="js/data.js"></script>-->
+    <script type="text/javascript" src="js/spots.js"> </script>
 </div>
-
 
 <!--left-navigation-->
 <div id="cd-menu-trigger" style="top: 83px;left:30px; height:40px; width:60px;background-color:rgba(84,84,84,0)">
@@ -167,74 +172,21 @@
 </div>
 <!--bottom-->
 <div class="wraper">
-    <div style="width:150px;margin-top:25px;margin-left:40px;float:left">
-        <div class="btn-group dropup">
-            <button type="button" class="btn btn-default" onclick="allDay();">日变化情况</button>
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="caret"></span>
-                <span class="sr-only">Toggle Dropdown</span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#" onclick="weekChange();">周变化情况</a></li>
-                <li><a href="#" onclick="weekChange();">返回全局视图</a></li>
-            </ul>
-        </div>
-
-        <div  style="height:30px;width:30px;margin-top:10px;float:left;">
-            <a href="#" onclick="playPause();">
-                <img id="btn" src="img/play.png"></a>
-        </div>
-        <div  style="height:30px;width:30px;margin-top:10px;float:right;margin-right:50px;">
-            <a href="#" onclick="allDay();">
-                <img  src="img/restart.png"></a>
-        </div>
+    <div style="width:70px;margin-top:25px;margin-left:50px;float:left">
+           <a href="#"><i class="icon-hospital icon-3x" onclick="hospital();"title= "hospital"></i></a>
     </div>
-    <div style="width:70%;height:95%;margin-right:200px;float:right;margin-top:5px;margin-bottom:10px;background-color:rgba(0,0,0,0.05);border-radius: 5px">
-        <!--slider-->
-        <div style="position:relative;height:5px;margin-left:30px">
-            <a href="#">
-                <div id="drag"
-                     style="margin-top:10px;background-color:#4ab4f0;width:5px;height:90px;" onmouseover='Move_obj("drag")' readonlyonChange="timeComtrol()">
-                </div>
-            </a>
-        </div>
-        <script language="JavaScript" type="text/javascript">
-            var drag_ = false;
-            var D = new Function('obj', 'return document.getElementById(obj);');
-            var event = window.event || event;
-            function Move_obj(obj) {
-                var x, y;
-                D(obj).onmousedown = function (event) {
-                    drag_ = true;
-                    with (this) {
-                        style.position = "absolute";
-                        var temp1 = offsetLeft;
-                        var temp2 = offsetTop;
-                        x = event.clientX;
-                        y = event.clientY;
-                        onmousemove = function (event) {
-                            if (!drag_)return false;
-                            with (this) {
-                                var move_x = temp1 + event.clientX - x;
-                                style.left = move_x < 780 ? move_x + "px" : 0 + "px";
-                                var a = temp1;
-                                innerHTML = temp1 + ' ';//+event.clientX+' '+x+'<br />'+move_x;
-                                //style.top=temp2+oevent(e).clientY-y+"px";
-                            }
-                        }
-                    }
-                    document.onmouseup = new Function("drag_=false");
-                }
-            }
-
-
-        </script>
-        <script type="text/javascript" src="js/data.js"></script>
-        <script type="text/javascript" src="js/allday.js"></script>
-        <canvas id="canvas" height="100%" width="800"></canvas>
-
-
+    <div style="width:70px;margin-top:25px;margin-left:40px;float:left">
+        <a href="#"><i class="icon-group icon-3x" onclick="group();" title= "group"></i></a>
     </div>
+
+    <div style="width:70px;margin-top:25px;margin-left:40px;float:left">
+        <a href="#"><i class="icon-camera-retro icon-3x" onclick="camera();" title= "camera"></i></a>
+    </div>
+    <div style="width:70px;margin-top:25px;margin-left:40px;float:left">
+        <a href="#"><i class="icon-plane icon-3x" onclick="plane();" title= "plane"></i></a>
+    </div>
+
+
 
 </div>
 </div>
@@ -343,18 +295,4 @@
         document.getElementById("btn").click();
         allDay();
     });
-</script>
-
-<script type="text/javascript">
-    function playPause() {
-        if (btn.src.search("img/play.png") != -1) {
-            btn.src = "img/pause.png";
-            start();
-
-        }
-        else {
-            btn.src = "img/play.png";
-            pause();
-        }
-    }
 </script>
