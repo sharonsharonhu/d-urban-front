@@ -1,147 +1,166 @@
-//ÍÏ·Å³ÌÐò
+//ï¿½Ï·Å³ï¿½ï¿½ï¿½
 var Drag = Class.create();
 Drag.prototype = {
-  //ÍÏ·Å¶ÔÏó
-  initialize: function(drag, options) {
-	this.Drag = $(drag);//ÍÏ·Å¶ÔÏó
-	this._x = this._y = 0;//¼ÇÂ¼Êó±êÏà¶ÔÍÏ·Å¶ÔÏóµÄÎ»ÖÃ
-	this._marginLeft = this._marginTop = 0;//¼ÇÂ¼margin
-	//ÊÂ¼þ¶ÔÏó(ÓÃÓÚ°ó¶¨ÒÆ³ýÊÂ¼þ)
-	this._fM = BindAsEventListener(this, this.Move);
-	this._fS = Bind(this, this.Stop);
-	
-	this.SetOptions(options);
-	
-	this.Limit = !!this.options.Limit;
-	this.mxLeft = parseInt(this.options.mxLeft);
-	this.mxRight = parseInt(this.options.mxRight);
-	this.mxTop = parseInt(this.options.mxTop);
-	this.mxBottom = parseInt(this.options.mxBottom);
-	
-	this.LockX = !!this.options.LockX;
-	this.LockY = !!this.options.LockY;
-	this.Lock = !!this.options.Lock;
-	
-	this.onStart = this.options.onStart;
-	this.onMove = this.options.onMove;
-	this.onStop = this.options.onStop;
-	
-	this._Handle = $(this.options.Handle) || this.Drag;
-	this._mxContainer = $(this.options.mxContainer) || null;
-	
-	this.Drag.style.position = "absolute";
-	//Í¸Ã÷
-	if(isIE && !!this.options.Transparent){
-		//Ìî³äÍÏ·Å¶ÔÏó
-		with(this._Handle.appendChild(document.createElement("div")).style){
-			width = height = "100%"; backgroundColor = "#fff"; filter = "alpha(opacity:0)"; fontSize = 0;
-		}
-	}
-	//ÐÞÕý·¶Î§
-	this.Repair();
-	addEventHandler(this._Handle, "mousedown", BindAsEventListener(this, this.Start));
-  },
-  //ÉèÖÃÄ¬ÈÏÊôÐÔ
-  SetOptions: function(options) {
-	this.options = {//Ä¬ÈÏÖµ
-		Handle:			"",//ÉèÖÃ´¥·¢¶ÔÏó£¨²»ÉèÖÃÔòÊ¹ÓÃÍÏ·Å¶ÔÏó£©
-		Limit:			false,//ÊÇ·ñÉèÖÃ·¶Î§ÏÞÖÆ(ÎªtrueÊ±ÏÂÃæ²ÎÊýÓÐÓÃ,¿ÉÒÔÊÇ¸ºÊý)
-		mxLeft:			0,//×ó±ßÏÞÖÆ
-		mxRight:		9999,//ÓÒ±ßÏÞÖÆ
-		mxTop:			0,//ÉÏ±ßÏÞÖÆ
-		mxBottom:		9999,//ÏÂ±ßÏÞÖÆ
-		mxContainer:	"",//Ö¸¶¨ÏÞÖÆÔÚÈÝÆ÷ÄÚ
-		LockX:			false,//ÊÇ·ñËø¶¨Ë®Æ½·½ÏòÍÏ·Å
-		LockY:			false,//ÊÇ·ñËø¶¨´¹Ö±·½ÏòÍÏ·Å
-		Lock:			false,//ÊÇ·ñËø¶¨
-		Transparent:	false,//ÊÇ·ñÍ¸Ã÷
-		onStart:		function(){},//¿ªÊ¼ÒÆ¶¯Ê±Ö´ÐÐ
-		onMove:			function(){},//ÒÆ¶¯Ê±Ö´ÐÐ
-		onStop:			function(){}//½áÊøÒÆ¶¯Ê±Ö´ÐÐ
-	};
-	Extend(this.options, options || {});
-  },
-  //×¼±¸ÍÏ¶¯
-  Start: function(oEvent) {
-	if(this.Lock){ return; }
-	this.Repair();
-	//¼ÇÂ¼Êó±êÏà¶ÔÍÏ·Å¶ÔÏóµÄÎ»ÖÃ
-	this._x = oEvent.clientX - this.Drag.offsetLeft;
-	this._y = oEvent.clientY - this.Drag.offsetTop;
-	//¼ÇÂ¼margin
-	this._marginLeft = parseInt(CurrentStyle(this.Drag).marginLeft) || 0;
-	this._marginTop = parseInt(CurrentStyle(this.Drag).marginTop) || 0;
-	//mousemoveÊ±ÒÆ¶¯ mouseupÊ±Í£Ö¹
-	addEventHandler(document, "mousemove", this._fM);
-	addEventHandler(document, "mouseup", this._fS);
-	if(isIE){
-		//½¹µã¶ªÊ§
-		addEventHandler(this._Handle, "losecapture", this._fS);
-		//ÉèÖÃÊó±ê²¶»ñ
-		this._Handle.setCapture();
-	}else{
-		//½¹µã¶ªÊ§
-		addEventHandler(window, "blur", this._fS);
-		//×èÖ¹Ä¬ÈÏ¶¯×÷
-		oEvent.preventDefault();
-	};
-	//¸½¼Ó³ÌÐò
-	this.onStart();
-  },
-  //ÐÞÕý·¶Î§
-  Repair: function() {
-	if(this.Limit){
-		//ÐÞÕý´íÎó·¶Î§²ÎÊý
-		this.mxRight = Math.max(this.mxRight, this.mxLeft + this.Drag.offsetWidth);
-		this.mxBottom = Math.max(this.mxBottom, this.mxTop + this.Drag.offsetHeight);
-		//Èç¹ûÓÐÈÝÆ÷±ØÐëÉèÖÃpositionÎªrelativeÀ´Ïà¶Ô¶¨Î»£¬²¢ÔÚ»ñÈ¡offsetÖ®Ç°ÉèÖÃ
-		!this._mxContainer || CurrentStyle(this._mxContainer).position == "relative" || CurrentStyle(this._mxContainer).position == "absolute" || (this._mxContainer.style.position = "relative");
-	}
-  },
-  //ÍÏ¶¯
-  Move: function(oEvent) {
-	//ÅÐ¶ÏÊÇ·ñËø¶¨
-	if(this.Lock){ this.Stop(); return; };
-	//Çå³ýÑ¡Ôñ
-	window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
-	//ÉèÖÃÒÆ¶¯²ÎÊý
-	this.SetPos(oEvent.clientX - this._x, oEvent.clientY - this._y);
-  },
-  //ÉèÖÃÎ»ÖÃ
-  SetPos: function(iLeft, iTop) {
-	//ÉèÖÃ·¶Î§ÏÞÖÆ
-	if(this.Limit){
-		//ÉèÖÃ·¶Î§²ÎÊý
-		var mxLeft = this.mxLeft, mxRight = this.mxRight, mxTop = this.mxTop, mxBottom = this.mxBottom;
-		//Èç¹ûÉèÖÃÁËÈÝÆ÷£¬ÔÙÐÞÕý·¶Î§²ÎÊý
-		if(!!this._mxContainer){
-			mxLeft = Math.max(mxLeft, 0);
-			mxTop = Math.max(mxTop, 0);
-			mxRight = Math.min(mxRight, this._mxContainer.clientWidth);
-			mxBottom = Math.min(mxBottom, this._mxContainer.clientHeight);
-		};
-		//ÐÞÕýÒÆ¶¯²ÎÊý
-		iLeft = Math.max(Math.min(iLeft, mxRight - this.Drag.offsetWidth), mxLeft);
-		iTop = Math.max(Math.min(iTop, mxBottom - this.Drag.offsetHeight), mxTop);
-	}
-	//ÉèÖÃÎ»ÖÃ£¬²¢ÐÞÕýmargin
-	if(!this.LockX){ this.Drag.style.left = iLeft - this._marginLeft + "px"; }
-	if(!this.LockY){ this.Drag.style.top = iTop - this._marginTop + "px"; }
-	//¸½¼Ó³ÌÐò
-	this.onMove();
-  },
-  //Í£Ö¹ÍÏ¶¯
-  Stop: function() {
-	//ÒÆ³ýÊÂ¼þ
-	removeEventHandler(document, "mousemove", this._fM);
-	removeEventHandler(document, "mouseup", this._fS);
-	if(isIE){
-		removeEventHandler(this._Handle, "losecapture", this._fS);
-		this._Handle.releaseCapture();
-	}else{
-		removeEventHandler(window, "blur", this._fS);
-	};
-	//¸½¼Ó³ÌÐò
-	this.onStop();
-  }
+    //ï¿½Ï·Å¶ï¿½ï¿½ï¿½
+    initialize: function (drag, options) {
+        this.Drag = $(drag);//ï¿½Ï·Å¶ï¿½ï¿½ï¿½
+        this._x = this._y = 0;//ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·Å¶ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+        this._marginLeft = this._marginTop = 0;//ï¿½ï¿½Â¼margin
+        //ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½Ú°ï¿½ï¿½Æ³ï¿½ï¿½Â¼ï¿½)
+        this._fM = BindAsEventListener(this, this.Move);
+        this._fS = Bind(this, this.Stop);
+
+        this.SetOptions(options);
+
+        this.Limit = !!this.options.Limit;
+        this.mxLeft = parseInt(this.options.mxLeft);
+        this.mxRight = parseInt(this.options.mxRight);
+        this.mxTop = parseInt(this.options.mxTop);
+        this.mxBottom = parseInt(this.options.mxBottom);
+
+        this.LockX = !!this.options.LockX;
+        this.LockY = !!this.options.LockY;
+        this.Lock = !!this.options.Lock;
+
+        this.onStart = this.options.onStart;
+        this.onMove = this.options.onMove;
+        this.onStop = this.options.onStop;
+
+        this._Handle = $(this.options.Handle) || this.Drag;
+        this._mxContainer = $(this.options.mxContainer) || null;
+
+        this.Drag.style.position = "absolute";
+        //Í¸ï¿½ï¿½
+        if (isIE && !!this.options.Transparent) {
+            //ï¿½ï¿½ï¿½ï¿½Ï·Å¶ï¿½ï¿½ï¿½
+            with (this._Handle.appendChild(document.createElement("div")).style) {
+                width = height = "100%";
+                backgroundColor = "#fff";
+                filter = "alpha(opacity:0)";
+                fontSize = 0;
+            }
+        }
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§
+        this.Repair();
+        addEventHandler(this._Handle, "mousedown", BindAsEventListener(this, this.Start));
+    },
+    //ï¿½ï¿½ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    SetOptions: function (options) {
+        this.options = {//Ä¬ï¿½ï¿½Öµ
+            Handle: "",//ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ó£¨²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½Ï·Å¶ï¿½ï¿½ï¿½
+            Limit: false,//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½Ã·ï¿½Î§ï¿½ï¿½ï¿½ï¿½(ÎªtrueÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ç¸ï¿½ï¿½ï¿½)
+            mxLeft: 0,//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            mxRight: 9999,//ï¿½Ò±ï¿½ï¿½ï¿½ï¿½ï¿½
+            mxTop: 0,//ï¿½Ï±ï¿½ï¿½ï¿½ï¿½ï¿½
+            mxBottom: 9999,//ï¿½Â±ï¿½ï¿½ï¿½ï¿½ï¿½
+            mxContainer: "",//Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            LockX: false,//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ë®Æ½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½
+            LockY: false,//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½
+            Lock: false,//ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+            Transparent: false,//ï¿½Ç·ï¿½Í¸ï¿½ï¿½
+            onStart: function () {
+            },//ï¿½ï¿½Ê¼ï¿½Æ¶ï¿½Ê±Ö´ï¿½ï¿½
+            onMove: function () {
+            },//ï¿½Æ¶ï¿½Ê±Ö´ï¿½ï¿½
+            onStop: function () {
+            }//ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½Ê±Ö´ï¿½ï¿½
+        };
+        Extend(this.options, options || {});
+    },
+    //×¼ï¿½ï¿½ï¿½Ï¶ï¿½
+    Start: function (oEvent) {
+        if (this.Lock) {
+            return;
+        }
+        this.Repair();
+        //ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·Å¶ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+        this._x = oEvent.clientX - this.Drag.offsetLeft;
+        this._y = oEvent.clientY - this.Drag.offsetTop;
+        //ï¿½ï¿½Â¼margin
+        this._marginLeft = parseInt(CurrentStyle(this.Drag).marginLeft) || 0;
+        this._marginTop = parseInt(CurrentStyle(this.Drag).marginTop) || 0;
+        //mousemoveÊ±ï¿½Æ¶ï¿½ mouseupÊ±Í£Ö¹
+        addEventHandler(document, "mousemove", this._fM);
+        addEventHandler(document, "mouseup", this._fS);
+        if (isIE) {
+            //ï¿½ï¿½ï¿½ã¶ªÊ§
+            addEventHandler(this._Handle, "losecapture", this._fS);
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê²¶ï¿½ï¿½
+            this._Handle.setCapture();
+        } else {
+            //ï¿½ï¿½ï¿½ã¶ªÊ§
+            addEventHandler(window, "blur", this._fS);
+            //ï¿½ï¿½Ö¹Ä¬ï¿½Ï¶ï¿½ï¿½ï¿½
+            oEvent.preventDefault();
+        }
+        ;
+        //ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½
+        this.onStart();
+    },
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§
+    Repair: function () {
+        if (this.Limit) {
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½
+            this.mxRight = Math.max(this.mxRight, this.mxLeft + this.Drag.offsetWidth);
+            this.mxBottom = Math.max(this.mxBottom, this.mxTop + this.Drag.offsetHeight);
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½positionÎªrelativeï¿½ï¿½ï¿½ï¿½Ô¶ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½Ú»ï¿½È¡offsetÖ®Ç°ï¿½ï¿½ï¿½ï¿½
+            !this._mxContainer || CurrentStyle(this._mxContainer).position == "relative" || CurrentStyle(this._mxContainer).position == "absolute" || (this._mxContainer.style.position = "relative");
+        }
+    },
+    //ï¿½Ï¶ï¿½
+    Move: function (oEvent) {
+        //ï¿½Ð¶ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (this.Lock) {
+            this.Stop();
+            return;
+        }
+        ;
+        //ï¿½ï¿½ï¿½Ñ¡ï¿½ï¿½
+        window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
+        this.SetPos(oEvent.clientX - this._x, oEvent.clientY - this._y);
+    },
+    //ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+    SetPos: function (iLeft, iTop) {
+        //ï¿½ï¿½ï¿½Ã·ï¿½Î§ï¿½ï¿½ï¿½ï¿½
+        if (this.Limit) {
+            //ï¿½ï¿½ï¿½Ã·ï¿½Î§ï¿½ï¿½ï¿½ï¿½
+            var mxLeft = this.mxLeft, mxRight = this.mxRight, mxTop = this.mxTop, mxBottom = this.mxBottom;
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½
+            if (!!this._mxContainer) {
+                mxLeft = Math.max(mxLeft, 0);
+                mxTop = Math.max(mxTop, 0);
+                mxRight = Math.min(mxRight, this._mxContainer.clientWidth);
+                mxBottom = Math.min(mxBottom, this._mxContainer.clientHeight);
+            }
+            ;
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½ï¿½
+            iLeft = Math.max(Math.min(iLeft, mxRight - this.Drag.offsetWidth), mxLeft);
+            iTop = Math.max(Math.min(iTop, mxBottom - this.Drag.offsetHeight), mxTop);
+        }
+        //ï¿½ï¿½ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½margin
+        if (!this.LockX) {
+            this.Drag.style.left = iLeft - this._marginLeft + "px";
+        }
+        if (!this.LockY) {
+            this.Drag.style.top = iTop - this._marginTop + "px";
+        }
+        //ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½
+        this.onMove();
+    },
+    //Í£Ö¹ï¿½Ï¶ï¿½
+    Stop: function () {
+        //ï¿½Æ³ï¿½ï¿½Â¼ï¿½
+        removeEventHandler(document, "mousemove", this._fM);
+        removeEventHandler(document, "mouseup", this._fS);
+        if (isIE) {
+            removeEventHandler(this._Handle, "losecapture", this._fS);
+            this._Handle.releaseCapture();
+        } else {
+            removeEventHandler(window, "blur", this._fS);
+        }
+        ;
+        //ï¿½ï¿½ï¿½Ó³ï¿½ï¿½ï¿½
+        this.onStop();
+    }
 };

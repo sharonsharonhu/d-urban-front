@@ -1,0 +1,110 @@
+h1, h2, h3, h4, h5 {
+    margin: 0px;
+}
+
+h3 {
+    margin-bottom: 10px;
+}
+
+h5 {
+    font-weight: 800;
+}
+
+div.right-panel {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    z-index: 3;
+<!-- visibility: hidden;
+-->
+}
+
+div#right-panel-content {
+    width: 400px;
+    height: 100vh;
+    background-color: #f2f2f2;
+    padding: 0px;
+    overflow: auto;
+}
+
+video.r-video {
+    width: 100%;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+    background-color: grey;
+}
+
+div.content-frame {
+    padding: 5px 30px 30px 30px;
+}
+
+li.video-item {
+    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+div.video-cap {
+    margin: 0px;
+    height: 40px;
+    background-color: white;
+}
+
+div.camera-info {
+    padding: 0px 10px 10px 10px;
+}
+
+li.li-pull-right {
+    padding-left: 20px;
+}
+
+i.healthy {
+    color: blue;
+}
+
+i.ill {
+    color: red;
+}
+
+.btn-view-info {
+    color: blue;
+    border-radius: 0px;
+    font-weight: 800;
+    margin-left: 37px;
+}
+
+.btn-view-info:hover {
+    background-color: blue;
+    color: #f2f2f2;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.btn-normal {
+    border-radius: 0px;
+    font-size: 1em;
+    border: none;
+}
+
+.btn-normal:hover {
+    background-color: blue;
+    color: #f2f2f2;
+}
+
+.modal-backdrop {
+    z-index: -1;
+}
+
+.modal, .modal-content {
+    border-radius: 0px;
+    border: 0px;
+}
+
+button#toggle-demo-btn {
+    position: absolute;
+    top: 6px;
+    left: 150px;
+}
